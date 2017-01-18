@@ -7,11 +7,12 @@ module.exports = function(app)
     var connectionString = 'mongodb://127.0.0.1:27017/test';
 
     if(process.env.MLAB_USERNAME) {
-        connectionString = process.env.MLAB_USERNAME + ":" +
-            process.env.MLAB_PASSWORD + "@" +
-            process.env.MLAB_HOST + ':' +
-            process.env.MLAB_PORT + '/' +
-            process.env.MLAB_APP_NAME;
+        connectionString = "mongodb://"+process.env.MLAB_USERNAME+":"+process.env.MLAB_PASSWORD+"@ds117899.mlab.com:17899/heroku_xn9ljwr0";
+        // connectionString = process.env.MLAB_USERNAME + ":" +
+        //     process.env.MLAB_PASSWORD + "@" +
+        //     process.env.MLAB_HOST + ':' +
+        //     process.env.MLAB_PORT + '/' +
+        //     process.env.MLAB_APP_NAME;
     }
 
     var mongoose = require("mongoose");

@@ -16,6 +16,12 @@ table {
     width: 100%
 }
 
+li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: large;
+}
+
 .white-color { color: white; }
 .fixed-border {
     position:fixed;

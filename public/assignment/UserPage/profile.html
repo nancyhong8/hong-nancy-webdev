@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profile</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
 </head>
 <body>
 
+<!--
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
-                Fixed Top
+                Profile
             </a>
             <p class="navbar-text pull-right">
                 <a href="#" class="navbar-link">
@@ -25,8 +26,42 @@
 </nav>
 
 
+-->
+<!-- HEADING -->
+<!--
+<nav class="navbar fixed-top navbar-inverse navbar-light bg-faded navbar-fixed-top">
+    <div class="container fluid">
+        <h2 class="white-color">
+            <p class="navbar-text pull-right">
+                <a href="profile.html">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </p>Profile
+        </h2>
+    </div>
+</nav>
+
+
+-->
+
+<div class="sticky-header">
+    <div class="container-fluid">
+        <h2 class="white-color">
+            <div class="right-side-glyphicon">
+                <a href="profile.html">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </div>Profile
+        </h2>
+    </div>
+</div>
+<!-- HEADING END -->
+
+
+
+
     <div class="container">
-        <h1>Profile</h1>
+
 
         <form>
             <div class="form-group">
@@ -48,37 +83,42 @@
         </form>
 
         <a class="btn btn-primary btn-block"
-           href="website-list.html">Websites</a>
+           href="../WebsitePages/website-list.html">Websites</a>
         <a class="btn btn-danger  btn-block"
            href="login.html">Logout</a>
+
     </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-        <div class="row navbar-text">
-            <div class="col-xs-3 text-center">
-                <a href="#">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </div>
-            <div class="col-xs-3 text-center">
-                <a href="#">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </div>
-            <div class="col-xs-3 text-center">
-                <a href="#">
-                    <span class="glyphicon glyphicon-star"></span>
-                </a>
-            </div>
-            <div class="col-xs-3 text-center">
-                <a href="#">
-                    <span class="glyphicon glyphicon-heart"></span>
-                </a>
-            </div>
+
+
+<!-- BOTTOM -->
+
+<!--
+    <nav class="navbar navbar-inverse navbar-light bg-faded navbar-fixed-bottom">
+        <div class="container fluid">
+        <h2><p class="navbar-text pull-right">
+            <a href="profile.html">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </p></h2>
         </div>
+    </nav>
+
+
+-->
+
+<div class="sticky-footer">
+    <div class="container-fluid">
+        <h2><div class="right-side-glyphicon">
+            <a href="profile.html">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div></h2>
     </div>
-</nav>
+</div>
+<!-- BOTTOM END -->
+
+
 
 </body>
 </html>

@@ -3,5 +3,53 @@ input.form-control {
 }
 
 body {
-    padding-top: 36px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+table {
+    width: 100%
+}
+
+.white-color { color: white; }
+.fixed-border {
+    position:fixed;
+}
+
+.sticky-header {
+    background-color: black;
+    color: white;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 60px;
+}
+
+
+.sticky-footer {
+    background-color: black;
+    color: white;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 60px;
+}
+
+.right-side-glyphicon {
+    float: right;
+}
+
+.left-side-glyphicon {
+    float: left;
+}
+
+table {
+    width: 100%;
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Widget Youtube</title>
+    <title>Widget image</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../css/style.css" rel="stylesheet"/>
@@ -16,12 +16,12 @@
     <div class="container-fluid">
         <h2 class="white-color">
             <div class="right-side-glyphicon">
-                <a href="widget-list.html">
+                <a href="widget-list.view.client.html">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
             <div class="left-side-glyphicon">
-                <a href="widget-list.html">
+                <a href="widget-list.view.client.html">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div> Widget Edit
@@ -52,13 +52,17 @@
             <label for="width">Width</label>
             <textarea class="form-control" rows="1" id="width" placeholder="100%">100%</textarea>
         </div>
-
+        <div class="form-group">
+            <label for="upload">Upload</label>
+            <input type ="file" class="form-contro" id="upload" placeholder="Choose File">
+        </div>
 
 
     </form>
-
+    <a class="btn btn-primary btn-block"
+       href="#">Upload Image</a>
     <a class="btn btn-danger btn-block"
-       href="widget-list.html">Delete</a>
+       href="widget-list.view.client.html">Delete</a>
 
 </div>
 
@@ -69,7 +73,7 @@
 <div class="sticky-footer">
     <div class="container-fluid">
         <h2><div class="right-side-glyphicon">
-            <a href="../UserPage/profile.html">
+            <a href="../views/user/profile.html">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div></h2>

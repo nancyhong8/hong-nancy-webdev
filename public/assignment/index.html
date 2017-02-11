@@ -1,12 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="WebAppMaker">
 <head>
+    <!-- <link href="../css/bootstrap.min.css" rel="stylesheet"/>-->
+    <link href="css/style.css" rel="stylesheet"/>
+    <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/angular.js"></script>
+    <script src="../js/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <!--
+    <script src="user/login.controller.client.js"></script>
+    <script src="services/user.service.client.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta charset="UTF-8">
-    <title>Assignment Home Page</title>
+
+    <title>Web Dev Course Home Page</title>
 </head>
 <body>
-    <h1>Assignment Home Page</h1>
+<h1>Web Dev Course Home Page</h1>
 
-    <h4><a href="UserPage/profile.html">Assignment 2</a></h4>
+
+
+<h2>Required links</h2>
+<ul>
+    <li>
+        <div ng-view></div>
+    </li>
+
+</ul>
+
 </body>
 </html>

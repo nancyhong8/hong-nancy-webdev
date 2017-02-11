@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Website Edit</title>
+    <title>Page New</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../css/style.css" rel="stylesheet"/>
@@ -17,123 +17,125 @@
         <div class="container-fluid">
             <h2 class="white-color">
                 <div class="right-side-glyphicon">
-                    <a href="website-new.html">
+                    <a href="page-new.view.client.html">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </div>
                 <div class="left-side-glyphicon">
-                    <a href="../UserPage/profile.html">
+                    <a href="../website/website-list.view.client.html">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
-                </div> Websites
+                </div> Pages
             </h2>
         </div>
     </div>
 
     <div class="col-xs-12 col-sm-8">
         <div class="container-fluid">
-                <h2 class="white-color">
-                    <div class="right-side-glyphicon">
-                        <a href="website-list.html">
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </a>
-                    </div>
-                    <div class="left-side-glyphicon">
-                        <a href="website-list.html">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                    </div> Edit Website
-                </h2>
+            <h2 class="white-color">
+                <div class="right-side-glyphicon">
+                    <a href="page-list.view.client.html">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                </div>
+                <div class="left-side-glyphicon">
+                    <a href="page-list.view.client.html">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </div> New Page
+            </h2>
         </div>
     </div>
-
 </div>
-
 
 <! -- HEADING END -->
 
-
-<!-- Website Page -->
+<!-- Page List -->
 <div class="col-xs-4 hidden-xs">
-    <div class="container-fluid row">
+    <div class="container-fluid">
 
         <table>
             <tbody>
             <tr>
-                <td><a href="../PagePages/page-list.html"><b>Address Book App</b></a></td>
+                <td><a href="../widget/widget-list.view.client.html"><b>Blog Post</b></a></td>
                 <td class="right-side-glyphicon">
-                    <a href="website-edit.html">
+                    <a href="page-edit.view.client.html">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </td>
             </tr>
             <tr>
-                <td><a href="../PagePages/page-list.html"><b>Blogger</b></a></td>
+                <td><a href="../widget/widget-list.view.client.html"><b>Blogs</b></a></td>
                 <td class="right-side-glyphicon">
-                    <a href="website-edit.html">
+                    <a href="page-edit.view.client.html">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </td>
             </tr>
             <tr>
-                <td><a href="../PagePages/page-list.html"><b>Blogging App</b></a></td>
+                <td><a href="../widget/widget-list.view.client.html"><b>Home</b></a></td>
                 <td class="right-side-glyphicon">
-                    <a href="website-edit.html">
+                    <a href="page-edit.view.client.html">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </td>
             </tr>
             <tr>
-                <td><a href="../PagePages/page-list.html"><b>Script Testing App</b></a></td>
+                <td><a href="../widget/widget-list.view.client.html"><b>About</b></a></td>
                 <td class="right-side-glyphicon">
-                    <a href="website-edit.html">
+                    <a href="page-edit.view.client.html">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="../widget/widget-list.view.client.html"><b>Contact Us</b></a></td>
+                <td class="right-side-glyphicon">
+                    <a href="page-edit.view.client.html">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </td>
             </tr>
             </tbody>
         </table>
+
     </div>
+
 </div>
-<!-- Website Page End -->
+
+<!-- Page List End -->
 
 
-<!-- Website Edit -->
+
 <div class="col-xs-12 col-sm-8">
-    <div class="container-fluid">
 
+    <div class="container-fluid">
         <form>
             <div class="form-group">
-                <label for="name">Website Name</label>
-                <textarea class="form-control" rows="1" id="name" placeholder="Website Name"></textarea>
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Page Name">
             </div>
             <div class="form-group">
-                <label for="description">Website Description</label>
-                <textarea class="form-control" rows="5" id="description" placeholder="Website Description"></textarea>
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Page Title">
 
             </div>
-
         </form>
+    </div>
 
-        <a class="btn btn-danger btn-block"
-           href="website-list.html">Delete</a>
-   </div>
 </div>
-<!-- Website edit End -->
-
 
 
 <!-- BOTTOM -->
-<!-- <div class="col-xs-12 col-sm-12"> -->
+
 <div class="sticky-footer">
     <div class="container-fluid">
         <h2><div class="right-side-glyphicon">
-            <a href="../UserPage/profile.html">
+            <a href="../views/user/profile.html">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div></h2>
     </div>
-
 </div>
 
 <!-- BOTTOM END -->

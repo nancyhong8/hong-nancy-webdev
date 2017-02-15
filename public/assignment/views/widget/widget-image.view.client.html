@@ -1,13 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Widget image</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-</head>
-<body>
 
 
 <!-- HEADING -->
@@ -38,23 +30,28 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <textarea class="form-control" rows="1" id="name" placeholder="Name"></textarea>
+            <input ng-model="model.widget.name"
+                   class="form-control" type="text" id="name" placeholder="Name"></input>
         </div>
         <div class="form-group">
             <label for="text">Text</label>
-            <textarea class="form-control" rows="1" id="text" placeholder="Text"></textarea>
+            <textarea ng-model="model.widget.text"
+                      class="form-control" rows="1" id="text" placeholder="Text"></textarea>
         </div>
         <div class="form-group">
             <label for="url">URL</label>
-            <textarea class="form-control" rows="1" id="url" placeholder="URL"></textarea>
+            <input ng-model="model.widget.url"
+                   class="form-control" type="url" id="url" placeholder="URL"></input>
         </div>
         <div class="form-group">
             <label for="width">Width</label>
-            <textarea class="form-control" rows="1" id="width" placeholder="100%">100%</textarea>
+            <input ng-model="model.widget.width"
+                   class="form-control" type="number" id="width" placeholder="100%">100%</input>
         </div>
         <div class="form-group">
             <label for="upload">Upload</label>
-            <input type ="file" class="form-contro" id="upload" placeholder="Choose File">
+            <input ng-model="model.widget.upload"
+                   type ="file" class="form-contro" id="upload" placeholder="Choose File">
         </div>
 
 
@@ -73,7 +70,6 @@
 <div class="sticky-footer">
     <div class="container-fluid">
         <h2><div class="right-side-glyphicon">
-            <a href="../views/user/profile.html">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div></h2>
@@ -82,5 +78,3 @@
 
 <!-- BOTTOM END -->
 
-</body>
-</html>

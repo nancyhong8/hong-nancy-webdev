@@ -1,13 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Website Edit</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-</head>
-<body>
 
 
 <!-- HEADING -->
@@ -34,12 +26,12 @@
         <div class="container-fluid">
                 <h2 class="white-color">
                     <div class="right-side-glyphicon">
-                        <a href="website-list.view.client.html">
+                        <a ng-click="model.updateWebsite()">
                             <span class="glyphicon glyphicon-ok"></span>
                         </a>
                     </div>
                     <div class="left-side-glyphicon">
-                        <a href="website-list.view.client.html">
+                        <a ng-click="model.websites()">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </a>
                     </div> Edit Website
@@ -105,18 +97,22 @@
         <form>
             <div class="form-group">
                 <label for="name">Website Name</label>
-                <textarea class="form-control" rows="1" id="name" placeholder="Website Name"></textarea>
+                <input ng-model="model.website.name"
+                          class="form-control" type="text" id="name" placeholder="Website Name"></input>
             </div>
             <div class="form-group">
                 <label for="description">Website Description</label>
-                <textarea class="form-control" rows="5" id="description" placeholder="Website Description"></textarea>
+                <textarea ng-model="model.website.description"
+                          class="form-control" rows="5" id="description" placeholder="Website Description"></textarea>
 
             </div>
 
         </form>
 
-        <a class="btn btn-danger btn-block"
-           href="website-list.view.client.html">Delete</a>
+        <a ng-click="model.updateWebsite()"
+           class="btn btn-success btn-block">Update</a>
+        <a ng-click="model.deleteWebsite()"
+           class="btn btn-danger btn-block">Delete</a>
    </div>
 </div>
 <!-- Website edit End -->
@@ -128,7 +124,7 @@
 <div class="sticky-footer">
     <div class="container-fluid">
         <h2><div class="right-side-glyphicon">
-            <a href="../views/user/profile.html">
+            <a ng-click="model.profile()">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div></h2>
@@ -138,5 +134,3 @@
 
 <!-- BOTTOM END -->
 
-</body>
-</html>

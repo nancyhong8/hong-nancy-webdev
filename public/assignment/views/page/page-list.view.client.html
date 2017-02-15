@@ -1,12 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>page-list</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-</head>
-<body>
 
 <!-- HEADING -->
 
@@ -14,12 +6,12 @@
     <div class="container-fluid">
         <h2 class="white-color">
             <div class="right-side-glyphicon">
-                <a href="page-new.view.client.html">
+                <a ng-click="model.newPage()">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
             <div class="left-side-glyphicon">
-                <a href="../website/website-list.view.client.html">
+                <a ng-click="model.websites()">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div> Pages
@@ -32,50 +24,24 @@
 
 <div class="container-fluid">
 
-    <table>
-        <tbody>
-        <tr>
-            <td><a href="../widget/widget-list.view.client.html"><b>Blog Post</b></a></td>
-            <td class="right-side-glyphicon">
-                <a href="page-edit.view.client.html">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="../widget/widget-list.view.client.html"><b>Blogs</b></a></td>
-            <td class="right-side-glyphicon">
-                <a href="page-edit.view.client.html">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="../widget/widget-list.view.client.html"><b>Home</b></a></td>
-            <td class="right-side-glyphicon">
-                <a href="page-edit.view.client.html">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="../widget/widget-list.view.client.html"><b>About</b></a></td>
-            <td class="right-side-glyphicon">
-                <a href="page-edit.view.client.html">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="../widget/widget-list.view.client.html"><b>Contact Us</b></a></td>
-            <td class="right-side-glyphicon">
-                <a href="page-edit.view.client.html">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+
+    <div ng-repeat="page in model.pages">
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <a ng-click="model.widget(page._id)">{{page.name}}</a>
+                </td>
+                <td class="right-side-glyphicon">
+                    <a ng-click="model.editPage(page._id)">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 
 </div>
 
@@ -91,7 +57,7 @@
 <div class="sticky-footer">
     <div class="container-fluid">
         <h2><div class="right-side-glyphicon">
-            <a href="../views/user/profile.html">
+            <a ng-click="model.profile()">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div></h2>
@@ -101,5 +67,3 @@
 <!-- BOTTOM END -->
 
 
-</body>
-</html>

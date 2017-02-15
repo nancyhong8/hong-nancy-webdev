@@ -26,7 +26,6 @@
     <div class="container fluid">
         <h2 class="white-color">
             <p class="navbar-text pull-right">
-                <a href="profile.html">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </p>Profile
@@ -40,7 +39,9 @@
 <div class="sticky-header">
     <div class="container-fluid">
         <h2 class="white-color">
+
             <div class="right-side-glyphicon">
+                <a ng-click="model.updateUser()">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>Profile
@@ -54,6 +55,9 @@
 
     <div class="container-fluid">
 
+        <div ng-show="model.message" class="alert alert-danger" role="alert">
+            {{model.message}}
+        </div>
 
         <form>
             <div class="form-group">
@@ -78,10 +82,8 @@
             </div>
         </form>
 
-        <a class="btn btn-primary btn-block"></a>
-           <!--href="../website/website-list.view.client.html">Websites</a>-->
-        <a class="btn btn-danger  btn-block"></a>
-           <!--href="login.view.client.html">Logout</a>-->
+        <a ng-click="model.websites()" class="btn btn-primary btn-block">Websites</a>
+        <a ng-click="model.logout()" class="btn btn-danger  btn-block">Logout</a>
 
     </div>
 
@@ -93,7 +95,6 @@
     <nav class="navbar navbar-inverse navbar-light bg-faded navbar-fixed-bottom">
         <div class="container fluid">
         <h2><p class="navbar-text pull-right">
-            <a href="profile.html">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </p></h2>
@@ -104,13 +105,7 @@
 -->
 
 <div class="sticky-footer">
-    <div class="container-fluid">
-        <h2><div class="right-side-glyphicon">
-            <!--<a href="profile.html">-->
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div></h2>
-    </div>
+    <div class="container-fluid"></div>
 </div>
 <!-- BOTTOM END -->
 

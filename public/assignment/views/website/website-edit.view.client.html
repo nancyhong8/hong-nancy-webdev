@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <h2 class="white-color">
                 <div class="right-side-glyphicon">
-                    <a href="website-new.view.client.html">
+                    <a ng-click="model.newWebsite()">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </div>
                 <div class="left-side-glyphicon">
-                    <a href="../views/user/profile.html">
+                    <a ng-click="model.profile()">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </div> Websites
@@ -31,7 +31,7 @@
                         </a>
                     </div>
                     <div class="left-side-glyphicon">
-                        <a ng-click="model.websites()">
+                        <a ng-click="model.websiteList()">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </a>
                     </div> Edit Website
@@ -49,42 +49,22 @@
 <div class="col-xs-4 hidden-xs">
     <div class="container-fluid row">
 
-        <table>
-            <tbody>
-            <tr>
-                <td><a href="../views/page/page-list.view.client.html"><b>Address Book App</b></a></td>
-                <td class="right-side-glyphicon">
-                    <a href="website-edit.view.client.html">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="../views/page/page-list.view.client.html"><b>Blogger</b></a></td>
-                <td class="right-side-glyphicon">
-                    <a href="website-edit.view.client.html">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="../views/page/page-list.view.client.html"><b>Blogging App</b></a></td>
-                <td class="right-side-glyphicon">
-                    <a href="website-edit.view.client.html">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="../views/page/page-list.view.client.html"><b>Script Testing App</b></a></td>
-                <td class="right-side-glyphicon">
-                    <a href="website-edit.view.client.html">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div ng-repeat="website in model.websites">
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <a ng-click="model.page(website._id)">{{website.name}}</a>
+                    </td>
+                    <td class="right-side-glyphicon">
+                        <a ng-click="model.edit(website._id)">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <!-- Website Page End -->

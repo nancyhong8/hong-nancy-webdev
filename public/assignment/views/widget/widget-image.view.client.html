@@ -2,31 +2,11 @@
 
 
 
-<!-- HEADING -->
 
-<div class="sticky-header">
-    <div class="container-fluid">
-        <h2 class="white-color">
-            <div class="right-side-glyphicon">
-                <a href="widget-list.view.client.html">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </div>
-            <div class="left-side-glyphicon">
-                <a href="widget-list.view.client.html">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </div> Widget Edit
-        </h2>
-    </div>
-</div>
-
-<! -- HEADING END -->
 
 
 
 <div class="container">
-
     <form>
         <div class="form-group">
             <label for="name">Name</label>
@@ -46,7 +26,7 @@
         <div class="form-group">
             <label for="width">Width</label>
             <input ng-model="model.widget.width"
-                   class="form-control" type="number" id="width" placeholder="100%">100%</input>
+                   class="form-control" type="text" id="width" placeholder="100%"></input>
         </div>
         <div class="form-group">
             <label for="upload">Upload</label>
@@ -56,25 +36,13 @@
 
 
     </form>
-    <a class="btn btn-primary btn-block"
-       href="#">Upload Image</a>
+    <!--<a class="btn btn-primary btn-block"-->
+       <!--ng-click="model.uploadImage()">Upload Image</a>-->
     <a class="btn btn-danger btn-block"
-       href="widget-list.view.client.html">Delete</a>
+       ng-click="model.deleteWidget()">Delete</a>
 
 </div>
 
 
 
-<!-- BOTTOM -->
-
-<div class="sticky-footer">
-    <div class="container-fluid">
-        <h2><div class="right-side-glyphicon">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div></h2>
-    </div>
-</div>
-
-<!-- BOTTOM END -->
 

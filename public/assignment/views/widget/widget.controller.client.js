@@ -43,24 +43,44 @@
         var vm = this;
     }
 
-    function editWidgetController($routeParams, WidgetService) {
+    function editWidgetController($location, $routeParams, WidgetService) {
         var vm = this;
-        vm.widgetId = $routeParams["widgetId"];
+        var widgetId = $routeParams["wgid"];
+        var userId = $routeParams["uid"];
+        var websiteId = $routeParams["wid"];
+        var pageId = $routeParams["pid"];
+        vm.widgetId = widgetId;
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
+        vm.profile = profile;
+        vm.widgetList = widgetList;
+
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.widgetId);
+            vm.widget = WidgetService.findWidgetById(widgetId);
+            console.log(widgetId);
+            console.log(vm.widget);
+            console.log(vm.widget._id);
+            console.log(vm.widget.widgetType);
         }
 
         init();
 
         function updateWidget(widget) {
-            widget = WidgetService.updateWidget(vm.widgetId, widget);
+            widget = WidgetService.updateWidget(widgetId, vm.widget);
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
         }
 
         function deleteWidget() {
-            widget = WidgetService.deleteWidget(widget);
+            widget = WidgetService.deleteWidget(widgetId);
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+
+        }
+        function profile() {
+            $location.url("/user/" + userId);
+        }
+        function widgetList() {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
         }
     }
 

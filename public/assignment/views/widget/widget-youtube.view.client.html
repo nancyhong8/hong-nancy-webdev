@@ -2,26 +2,26 @@
 
 
 
-<!-- HEADING -->
+<!--&lt;!&ndash; HEADING &ndash;&gt;-->
 
-<div class="sticky-header">
-    <div class="container-fluid">
-        <h2 class="white-color">
-            <div class="right-side-glyphicon">
-                <a href="widget-list.view.client.html">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </div>
-            <div class="left-side-glyphicon">
-                <a href="widget-list.view.client.html">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </div> Widget Edit
-        </h2>
-    </div>
-</div>
+<!--<div class="sticky-header">-->
+    <!--<div class="container-fluid">-->
+        <!--<h2 class="white-color">-->
+            <!--<div class="right-side-glyphicon">-->
+                <!--<a ng-click="model.updateWidget()">-->
+                    <!--<span class="glyphicon glyphicon-ok"></span>-->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<div class="left-side-glyphicon">-->
+                <!--<a ng-click="model.widgetList()">-->
+                    <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
+                <!--</a>-->
+            <!--</div> Widget Edit-->
+        <!--</h2>-->
+    <!--</div>-->
+<!--</div>-->
 
-<! -- HEADING END -->
+<!--<! &#45;&#45; HEADING END &ndash;&gt;-->
 
 
 
@@ -45,7 +45,7 @@
         <div class="form-group">
             <label for="width">Width</label>
             <input ng-model="model.widget.width"
-                   class="form-control" type="number" id="width" placeholder="100%">100%</input>
+                   class="form-control" type="text" id="width" placeholder="100%"></input>
         </div>
 
 
@@ -53,21 +53,22 @@
     </form>
 
     <a class="btn btn-danger btn-block"
-       href="widget-list.view.client.html">Delete</a>
+       ng-click="model.deleteWidget()">Delete</a>
 
 </div>
 
 
 
-<!-- BOTTOM -->
+<!--&lt;!&ndash; BOTTOM &ndash;&gt;-->
 
-<div class="sticky-footer">
-    <div class="container-fluid">
-        <h2><div class="right-side-glyphicon">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div></h2>
-    </div>
-</div>
+<!--<div class="sticky-footer">-->
+    <!--<div class="container-fluid">-->
+        <!--<h2><div class="right-side-glyphicon">-->
+            <!--<a ng-click="model.profile()">-->
+                <!--<span class="glyphicon glyphicon-user"></span>-->
+            <!--</a>-->
+        <!--</div></h2>-->
+    <!--</div>-->
+<!--</div>-->
 
-<!-- BOTTOM END -->
+<!--&lt;!&ndash; BOTTOM END &ndash;&gt;-->

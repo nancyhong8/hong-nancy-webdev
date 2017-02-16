@@ -43,12 +43,20 @@
     function newWebsiteController($location, $routeParams, WebsiteService) {
         var vm = this;
         var userId = $routeParams["uid"];
+        //var websiteId = $routeParams["wid"];
         vm.website = {name: "", descrription: ""};
         vm.create = create;
         vm.profile = profile;
-        vm.websites = websites;
+        vm.websiteList = websiteList;
+        vm.edit = edit;
+        vm.page = page;
 
-        function websites() {
+        function init() {
+            vm.websites = WebsiteService.findWebsitesByUser(userId);
+        }
+        init();
+
+        function websiteList() {
             $location.url("/user/" + userId + "/website");
         }
 
@@ -59,6 +67,13 @@
 
         function profile() {
             $location.url("/user/" + userId);
+        }
+
+        function edit(websiteId) {
+            $location.url("/user/" + userId + "/website/" + websiteId);
+        }
+        function page(websiteId) {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page");
         }
 
     }
@@ -72,15 +87,19 @@
         vm.deleteWebsite = deleteWebsite;
         vm.profile = profile;
         vm.website = {name: "", description: ""};
-        vm.websites = websites;
+        vm.websiteList = websiteList;
+        vm.edit = edit;
+        vm.page = page;
+        vm.newWebsite = newWebsite;
 
         function init() {
             var website = WebsiteService.findWebsiteById(websiteId);
+            vm.websites = WebsiteService.findWebsitesByUser(userId);
             vm.website = website;
         }
         init();
 
-        function websites() {
+        function websiteList() {
             $location.url("/user/" + userId + "/website");
         }
 
@@ -95,6 +114,15 @@
         function deleteWebsite() {
             WebsiteService.deleteWebsite(websiteId);
             $location.url("/user/" + userId + "/website");
+        }
+        function edit(websiteId) {
+            $location.url("/user/" + userId + "/website/" + websiteId);
+        }
+        function page(websiteId) {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+        }
+        function newWebsite() {
+            $location.url("/user/" + userId + "/website/new")
         }
     }
 

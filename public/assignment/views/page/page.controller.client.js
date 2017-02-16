@@ -53,11 +53,16 @@
         var userId = $routeParams["uid"];
         vm.websiteId = websiteId;
         vm.userId = userId;
-        vm.newPage = newPage;
         vm.pages = pages;
         vm.page = {name: "", title: ""};
+        vm.createPage = createPage;
+        vm.profile = profile;
+        vm.websiteList = websiteList;
+        vm.widget = widget;
+        vm.editPage = editPage;
         function init() {
             vm.page = PageService.findPageById();
+            vm.pages = PageService.findPagesByWebsiteId(websiteId);
         }
         init();
 
@@ -65,10 +70,27 @@
             $location.url("/user/" + userId + "/website/" + websiteId + "/page");
         }
 
-        function newPage(page) {
+        function createPage() {
             page = PageService.createPage(websiteId, vm.page);
             $location.url("/user/" + userId + "/website/" + websiteId + "/page");
         }
+        function profile() {
+            $location.url("/user/" + userId);
+        }
+        function websiteList() {
+            $location.url("/user/" + userId + "/website/");
+        }
+
+        function widget(pageId) {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+        }
+
+        function editPage(pageId) {
+            var page = PageService.findPageById(pageId);
+            vm.page = page;
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId);
+        }
+
     }
 
     function editPageController($location, $routeParams, PageService) {
@@ -82,9 +104,13 @@
         var websiteId = $routeParams["wid"];
         vm.profile = profile;
         vm.page = {name: "", title: ""};
+        vm.websiteList = websiteList;
+        vm.widget = widget;
+        vm.newPage = newPage
 
         function init() {
             vm.page = PageService.findPageById(pageId);
+            vm.pages = PageService.findPagesByWebsiteId(websiteId);
         }
         init();
 
@@ -104,6 +130,17 @@
 
         function profile() {
             $location.url("/user/" + userId);
+        }
+        function websiteList() {
+            $location.url("/user/" + userId + "/website/");
+        }
+
+        function widget(pageId) {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+        }
+
+        function newPage() {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/new");
         }
     }
 

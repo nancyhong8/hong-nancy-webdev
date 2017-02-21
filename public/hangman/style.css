@@ -61,7 +61,73 @@ table {
 }
 
 .centered {
-    width: 600px;
-    margin: auto;
-    text-align: justify;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 200px;
+    text-align: center;
+    width: 50%;
+    padding: 10px;
+    top: 50%;
 }
+
+
+.instructions {
+    width: 350px;
+    height: 100px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+}
+.alphabetBox {
+    margin:15px auto;
+    padding: 10px;
+    max-width:900px;
+}
+.alphabet {
+    float:left;
+    margin: 0 10px 10px 0;
+    list-style:none;
+    width:35px;
+    height:30px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    background:yellow;
+    text-align: center;;
+    border: 3px double #CCCCCC;
+    border-radius:10px;
+    /*color:$base-color;*/
+    cursor:pointer;
+/*@include corners(5px);*/
+    /*border: solid 1px $white;*/
+
+/*:hover{*/
+     /*background: blue;*/
+     /*border: solid 1px white;*/
+     /*color:white;*/
+ /*}*/
+}
+
+.center {
+    margin-top: 50px;
+}
+.spaces {
+    float: left;
+    margin: 0 10px 10px 0;
+    list-style: none;
+    width: 35px;
+    height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.wrongGuesses {
+    margin-top: 30px;
+    font-size: large;
+}
+    /*color:$base-color;*/
+

@@ -1,10 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="style.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="functions.js"></script>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+
+
+<!-- Header -->
+<div class="sticky-header">
+    <div class="container-fluid">
+        <h2 class="white-color">
+            <div class="right-side-glyphicon">
+                    <span onclick="instructions()" title="Instructions" class="glyphicon glyphicon-info-sign"></span>
+                    <span onclick="restart()" title="Restart" class="glyphicon glyphicon-repeat"></span>
+            </div>Nancy's Hangman
+        </h2>
+    </div>
+</div>
+<!-- HEADER END -->
+
+
+
+<div class="col-xs-8">
+    <div class="container-fluid">
+        <div id="instructions" style="display:none;" class="instructions">
+            These are the instructions:
+            blalslkjfalsdf
+            asdfkjasdflajsdf
+
+        </div>
+        <div id="buttons" onclick="buttonClicked()">
+
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-4">
+    <div class="container-fluid">
+    </div>
+</div>
+
+
+
+
+<!-- FOOTER -->
+<div class="sticky-footer">
+<div class="container-fluid">
+<h2><div class="right-side-glyphicon">
+<a href="">
+<span class="glyphicon glyphicon-user"></span>
+</a>
+</div></h2>
+</div>
+</div>
+<!-- FOOTER END -->
+
 </body>
 </html>

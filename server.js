@@ -13,3 +13,12 @@ require ("./test/app.js")(app);
 var port = process.env.PORT || 3000;
 
 app.listen(port);
+
+
+// require("./assignment/app.js")(app);
+// app.listen(port, ipaddress);
+//
+// // install, load, and configure body parser modeul
+// var bodyParser = require('body-parser');
+// app.use(bodyParser.urlencoded({ extended: true}));
+// app.use(bodyParser.json());

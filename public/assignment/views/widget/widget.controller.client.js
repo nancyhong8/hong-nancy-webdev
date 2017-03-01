@@ -16,10 +16,21 @@
         vm.pages = pages;
         vm.profile = profile;
 
+
         function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(pageId);
+            var promise = WidgetService.findWidgetsByPageId(pageId);
+            promise
+                .then(function(widget) {
+                    vm.widgets = widget.data;
+                }),(function(error) {
+                    alert("error");
+                })
         }
         init();
+
+        vm.newWidget = function() {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/new");
+        }
 
         function pages() {
             $location.url("/user/" + userId + "/website/" + websiteId + "/page");
@@ -50,6 +61,9 @@
         var websiteId = $routeParams["wid"];
         var pageId = $routeParams["pid"];
         vm.widgetId = widgetId;
+        vm.userId = userId;
+        vm.websiteId = websiteId;
+        vm.pageId = pageId;
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
         vm.profile = profile;
@@ -57,23 +71,35 @@
 
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(widgetId);
-            console.log(widgetId);
-            console.log(vm.widget);
-            console.log(vm.widget._id);
-            console.log(vm.widget.widgetType);
+            var promise = WidgetService.findWidgetById(widgetId);
+            promise
+                .then(function(widget) {
+                    vm.widget = widget.data;
+                }),(function(error) {
+                    alert("error");
+                })
         }
-
         init();
 
         function updateWidget(widget) {
-            widget = WidgetService.updateWidget(widgetId, vm.widget);
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+            var promise = WidgetService.updateWidget(widgetId, vm.widget);
+            promise
+                .then(function(widget) {
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+                }),(function(error) {
+                    alert("error");
+                })
+
         }
 
         function deleteWidget() {
-            widget = WidgetService.deleteWidget(widgetId);
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+            var promise = WidgetService.deleteWidget(widgetId);
+            promise
+                .then(function(widget) {
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+                }),(function(error) {
+                    alert("error");
+                })
 
         }
         function profile() {

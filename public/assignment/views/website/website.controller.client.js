@@ -17,6 +17,17 @@
         vm.website = {name: "", description: ""};
         vm.page = page;
 
+        function init() {
+            var userId = $routeParams['uid'];
+            var promise = WebsiteService.findWebsitesByUser(userId);
+            promise
+                .then(function(websites) {
+                    vm.websites = websites.data;
+                }),function(err) {
+                alert(err);
+            }
+        }
+        init();
 
         function page(websiteId) {
             $location.url("/user/" + userId + "/website/" + websiteId + "/page");
@@ -31,10 +42,14 @@
         }
 
         function edit(websiteId) {
-            //website = WebsiteService.updateWebsite(userId, vm.website);
-            var website = WebsiteService.findWebsiteById(websiteId);
-            vm.website = website;
-            $location.url("/user/" + userId + "/website/" + websiteId);
+            var promise = WebsiteService.findWebsiteById(websiteId);
+            promise
+                .then(function(website) {
+                    vm.website = website.data;
+                    $location.url("/user/" + userId + "/website/" + websiteId);
+                }),(function(error) {
+                    alert("error");
+                })
         }
 
 
@@ -52,7 +67,13 @@
         vm.page = page;
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(userId);
+            var promise = WebsiteService.findWebsitesByUser(userId);
+            promise
+                .then(function(website) {
+                    vm.websites = website.data;
+                }),(function(error) {
+                    alert("error");
+                })
         }
         init();
 
@@ -61,8 +82,13 @@
         }
 
         function create() {
-            website = WebsiteService.createWebsite(userId, vm.website);
-            $location.url("/user/" + userId + "/website");
+            var promise = WebsiteService.createWebsite(userId, vm.website);
+            promise
+                .then(function(website) {
+                    $location.url("/user/" + userId + "/website");
+                }),(function(error) {
+                    alert("error");
+                })
         }
 
         function profile() {
@@ -93,9 +119,20 @@
         vm.newWebsite = newWebsite;
 
         function init() {
-            var website = WebsiteService.findWebsiteById(websiteId);
-            vm.websites = WebsiteService.findWebsitesByUser(userId);
-            vm.website = website;
+            var promise = WebsiteService.findWebsiteById(websiteId);
+            var promise2 = WebsiteService.findWebsitesByUser(userId);
+            promise
+                .then(function(website) {
+                    vm.website = website.data;
+                }),(function(error) {
+                    alert("error");
+                })
+            promise2
+                .then(function(website) {
+                    vm.websites = website.data;
+                }),(function(error) {
+                    alert("error");
+                })
         }
         init();
 
@@ -107,14 +144,25 @@
             $location.url("/user/" + userId);
         }
         function updateWebsite() {
-            website = WebsiteService.updateWebsite(websiteId, vm.website);
-            $location.url("/user/" + userId + "/website");
+            var promise = WebsiteService.updateWebsite(websiteId, vm.website);
+            promise
+                .then(function(website) {
+                    $location.url("/user/" + userId + "/website");
+                }),(function(error) {
+                    alert("error");
+                })
         }
 
         function deleteWebsite() {
-            WebsiteService.deleteWebsite(websiteId);
-            $location.url("/user/" + userId + "/website");
+            var promise = WebsiteService.deleteWebsite(websiteId);
+            promise
+                .then(function(website) {
+                    $location.url("/user/" + userId + "/website");
+                }),(function(error) {
+                    alert("error");
+                })
         }
+
         function edit(websiteId) {
             $location.url("/user/" + userId + "/website/" + websiteId);
         }

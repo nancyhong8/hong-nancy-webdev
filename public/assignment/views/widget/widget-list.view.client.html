@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <h2 class="white-color">
             <div class="right-side-glyphicon">
-                <a href="widget-choose.view.client.html">
+                <a ng-click="model.newWidget()">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
@@ -30,7 +30,8 @@
 <! -- HEADING END -->
 
 
-<div class="container">
+<div class="container" sortable-directive="">
+
 
     <div ng-repeat="widget in model.widgets">
 

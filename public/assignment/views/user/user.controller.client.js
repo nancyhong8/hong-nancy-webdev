@@ -11,23 +11,41 @@
         vm.user = {username: "", password: ""};
         vm.register = register;
 
-        function init() {}
+        function init() {
+        }
         init();
 
         function login() {
-            var user = UserService
-                .findUserByCredentials(vm.user.username, vm.user.password);
-            if (user) {
-                $location.url("/user/"+user._id);
-            } else {
-                vm.error = "Unable to login";
-            }
+            var promise = UserService.findUserByCredentials(vm.user.username, vm.user.password);
+
+            promise
+                .then(function(user) {
+                    if(user.data) {
+                        $location.url("/user/"+user.data._id);
+                    }
+                }),function(error) {
+                    alert(error);
+                }
+
+
+                // .success(function(user) {
+                //     if (user) {
+                //         $location.url("/user/"+user._id);
+                //     } else {
+                //         vm.error = "Unable to login";
+                //     }
+                // })
+                // .error(function(err) {
+                //     alert("Error");
+                // })
+
         }
 
         function register() {
             $location.url("/register");
         }
     }
+
 
     function registerController($routeParams, $location, UserService) {
         var vm = this;
@@ -37,9 +55,15 @@
 
 
         function register() {
+            console.log(vm.user);
             if (vm.user.password == vm.user.passwordVerify) {
-                var user = UserService.createUser(vm.user);
-                $location.url("/user/"+user._id);
+                var promise = UserService.createUser(vm.user);
+                promise
+                    .then(function(user) {
+                        $location.url("/user/"+user.data._id);
+                    }),(function(err) {
+                        alert("error");
+                    })
             } else {
                 vm.error = "Passwords do not match";
             }
@@ -60,23 +84,48 @@
         }
 
         function init() {
-            var user = UserService.findUserById(userId);
-            vm.user = user;
+            var promise = UserService.findUserById(userId);
+            promise
+                .then(function(user) {
+                    vm.user = user.data;
+                }),function(error) {
+                    alert(error);
+            }
+                // .success(function(user) {
+                //     vm.user = user;
+                // })
+                // .error(function(error) {
+                //     alert("error");
+                // })
         }
         init();
 
         function updateUser() {
-            user = UserService.updateUser(vm.user.userId, vm.user);
-            if (vm.user != null) {
-                vm.message = "User updated successfully!"
-            } else {
-                vm.message = "Unable to update user."
-            }
+            var promise = UserService.updateUser(userId, vm.user);
+            promise
+                .then(function(user) {
+                    if (vm.user != null) {
+                        vm.message = "User updated successfully!"
+                    } else {
+                        vm.message = "Unable to update user."
+                    }
+                }),function(error) {
+                    alert(error);
+                }
+                // .success(function(user) {
+                //     if (vm.user != null) {
+                //         vm.message = "User updated successfully!"
+                //     } else {
+                //         vm.message = "Unable to update user."
+                //     }
+                // })
+                // .error(function(error) {
+                //     alert("error");
+                // })
 
         }
 
         function websites() {
-            console.log(userId);
             $location.url("/user/"+userId+"/website");
         }
 

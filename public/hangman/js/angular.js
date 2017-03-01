@@ -8414,7 +8414,7 @@
                      *
                      * Also there is special case for Moz prefix starting with upper case letter.
                      *
-                     * For further information check out the guide on {@link guide/directive#matching-directives Matching Directives}
+                     * For further information check out the guide on {@link guide/directive#matching-directives Matching directives}
                      *
                      * @param {string} name Name to normalize
                      */

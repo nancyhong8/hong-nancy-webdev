@@ -19,7 +19,14 @@
         vm.editPage = editPage;
 
         function init() {
-            vm.pages = PageService.findPagesByWebsiteId(websiteId);
+
+            var promise = PageService.findPagesByWebsiteId(websiteId);
+            promise
+                .then(function(page) {
+                    vm.pages = page.data;
+                }),(function(err) {
+                    alert("INIT ERROR");
+                })
         }
 
         init();
@@ -41,9 +48,14 @@
         }
 
         function editPage(pageId) {
-            var page = PageService.findPageById(pageId);
-            vm.page = page;
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId);
+            var promise = PageService.findPageById(pageId);
+            promise
+                .then(function(page) {
+                    vm.page = page.data;
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId);
+                }),(function(err) {
+                    vm.error = "Cannot Edit Page";
+                })
         }
     }
 
@@ -60,9 +72,23 @@
         vm.websiteList = websiteList;
         vm.widget = widget;
         vm.editPage = editPage;
+
         function init() {
-            vm.page = PageService.findPageById();
-            vm.pages = PageService.findPagesByWebsiteId(websiteId);
+            // var promise = PageService.findPageById();
+            var promise2 = PageService.findPagesByWebsiteId(websiteId);
+            //
+            // promise
+            //     .then(function(page) {
+            //         vm.page = page.data;
+            //     }),(function(err) {
+            //         alert("INIT ERROR");
+            //     })
+            promise2
+                .then(function(page) {
+                    vm.pages = page.data;
+                }),(function(err) {
+                    alert("INIT ERROR");
+                })
         }
         init();
 
@@ -71,8 +97,14 @@
         }
 
         function createPage() {
-            page = PageService.createPage(websiteId, vm.page);
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+            var promise = PageService.createPage(websiteId, vm.page);
+            promise
+                .then(function(page) {
+                    vm.page = page.data;
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+                }),(function(err) {
+                    alert("Cannot Create Page");
+                })
         }
         function profile() {
             $location.url("/user/" + userId);
@@ -86,9 +118,16 @@
         }
 
         function editPage(pageId) {
-            var page = PageService.findPageById(pageId);
-            vm.page = page;
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId);
+            var promise = PageService.findPageById(pageId);
+
+            promise
+                .then(function(page) {
+                    vm.page = page.data;
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId);
+                }),(function(err) {
+                    alert("INIT ERROR");
+                })
+
         }
 
     }
@@ -109,19 +148,45 @@
         vm.newPage = newPage
 
         function init() {
-            vm.page = PageService.findPageById(pageId);
-            vm.pages = PageService.findPagesByWebsiteId(websiteId);
+            var promise = PageService.findPageById(pageId);
+            var promise2 = PageService.findPagesByWebsiteId(websiteId);
+            promise
+                .then(function(page) {
+                    vm.page = page.data;
+                }),(function(err) {
+                    alert("INIT ERROR");
+                })
+            promise2
+                .then(function(page) {
+                    vm.pages = page.data;
+                }),(function(err) {
+                    alert("INIT ERROR");
+                })
         }
         init();
 
         function updatePage(page) {
-            page = PageService.updatePage(pageId, vm.page);
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+            var page;
+            var promise = PageService.updatePage(pageId, vm.page);
+            promise
+                .then(function(inPage) {
+                    page = inPage.data;
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+                }),(function(err) {
+                    alert("INIT ERROR");
+                })
         }
 
         function deletePage() {
-            page = PageService.deletePage(pageId);
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+            var page;
+            var promise = PageService.deletePage(pageId);
+            promise
+                .then(function(inPage) {
+                    page = inPage.data;
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+                }),(function(err) {
+                    alert("INIT ERROR");
+                })
         }
 
         function pages() {

@@ -50,8 +50,29 @@
         }
     }
 
-    function newWidgetController() {
+    function newWidgetController($routeParams, $location) {
         var vm = this;
+        var widgetId = $routeParams["wgid"];
+
+        var userId = $routeParams["uid"];
+        var websiteId = $routeParams["wid"];
+        var pageId = $routeParams["pid"];
+        vm.profile = function() {
+            $location.url("/user/" + userId);
+        }
+        vm.widgetsList = function() {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
+        }
+        vm.headerPage = function() {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/header");
+        }
+        vm.imagePage = function() {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/image");
+        }
+        vm.youtubePage = function() {
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/youtube");
+        }
+
     }
 
     function editWidgetController($location, $routeParams, WidgetService) {
@@ -71,13 +92,25 @@
 
 
         function init() {
-            var promise = WidgetService.findWidgetById(widgetId);
-            promise
-                .then(function(widget) {
-                    vm.widget = widget.data;
-                }),(function(error) {
+            if (widgetId == "header") {
+                vm.widget = {"widgetType": "HEADER"};
+            }
+            if (widgetId == "image") {
+                vm.widget = {"widgetType": "IMAGE"};
+            }
+            if (widgetId == "youtube") {
+                vm.widget = {"widgetType": "YOUTUBE"};
+            }
+            else {
+                console.log("reached edit init");
+                var promise = WidgetService.findWidgetById(widgetId);
+                promise
+                    .then(function(widget) {
+                        vm.widget = widget.data;
+                    }),(function(error) {
                     alert("error");
                 })
+            }
         }
         init();
 

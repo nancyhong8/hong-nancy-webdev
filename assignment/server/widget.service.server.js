@@ -26,15 +26,16 @@ module.exports = function (app) {
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-        var url = '/user/'+userId+'/website/'+websiteId+'/page/'+pageId+'/widget/'+widgetId;
-
+        var url = '/assignment/#!\/user\/'+userId+'\/website\/'+websiteId+'\/page\/'+pageId+'\/widget\/';
+        var widget = {"_id": widgetId, "widgetType": "IMAGE", "pageId": pageId, "width": width, "url": "/uploads/" + filename};
+        widgets.push(widget);
         res.redirect(url);
     }
 
         var widgets = [
             {"_id": "123", "widgetType": "HEADER", "pageId": "543", "size": 2, "text": "GIZMODO" },
             {"_id": "234", "widgetType": "HEADER", "pageId": "543", "size": 4, "text": "Lorem ipsum" },
-            {"_id": "345", "widgetType": "IMAGE", "pageId": "543", "width": "100%", "url": "http:lorempixel.com/400/200" },
+            {"_id": "345", "widgetType": "IMAGE", "pageId": "543", "width": "100%", "url": "http://lorempixel.com/400/200" },
             {"_id": "456", "widgetType": "HTML", "pageId": "543", "text": "<p>Lorem ipsum</p>" },
             {"_id": "567", "widgetType": "HEADER", "pageId": "543", "size": 4, "text": "Lorem ipsum" },
             {"_id": "678", "widgetType": "YOUTUBE", "pageId": "543", "width": "100%", "url": "http://youtube/AM2Ivdi9c4E" },

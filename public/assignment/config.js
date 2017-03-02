@@ -70,6 +70,21 @@
                 controller: "editWidgetController",
                 controllerAs: "model"
             })
+            // .when("/user/:uid/website/:wid/page/:pid/widget/header", {
+            //     templateUrl: "views/widget/widget-heading.view.client.html",
+            //     controller: "editWidgetController",
+            //     controllerAs: "model"
+            // })
+            // .when("/user/:uid/website/:wid/page/:pid/widget/image", {
+            //     templateUrl: "views/widget/widget-image.view.client.html",
+            //     controller: "editWidgetController",
+            //     controllerAs: "model"
+            // })
+            // .when("/user/:uid/website/:wid/page/:pid/widget/youtube", {
+            //     templateUrl: "views/widget/widget-youtube.view.client.html",
+            //     controller: "editWidgetController",
+            //     controllerAs: "model"
+            // })
             .otherwise({
                 redirectTo: "/login"
             })

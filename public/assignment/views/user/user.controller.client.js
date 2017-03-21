@@ -55,7 +55,6 @@
 
 
         function register() {
-            console.log(vm.user);
             if (vm.user.password == vm.user.passwordVerify) {
                 var promise = UserService.createUser(vm.user);
                 promise
@@ -105,6 +104,7 @@
             promise
                 .then(function(user) {
                     if (vm.user != null) {
+                        console.log(vm.user);
                         vm.message = "User updated successfully!"
                     } else {
                         vm.message = "Unable to update user."

@@ -15,6 +15,8 @@
         vm.pageId = pageId;
         vm.pages = pages;
         vm.profile = profile;
+        vm.oldIndex = "";
+        vm.newIndex = "";
 
 
         function init() {

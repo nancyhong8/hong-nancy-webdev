@@ -17,6 +17,7 @@
         return api;
 
         function createUser(user) {
+            console.log('user from service client: ' + JSON.stringify(user));
             return $http.post("/api/user", user);
 
         }

@@ -30,7 +30,10 @@
 <! -- HEADING END -->
 
 
-<div class="container" sortable-directive="">
+<!--<div class="container" sortable-directive="">-->
+<div class="container">
+    <sortable-directive newIndex="newIndex" oldIndex="oldIndex">
+
 
 
     <div ng-repeat="widget in model.widgets">
@@ -65,7 +68,8 @@
             </tbody>
         </table>
 
-        <!--<div ng-switch="widget.widgetType">-->
+
+    <!--<div ng-switch="widget.widgetType">-->
 
             <!--<div ng-switch-when="HEADER">-->
                 <!--<h3>{{widget.text}}</h3>-->
@@ -98,6 +102,8 @@
             <!--</tbody>-->
         <!--</table>-->
     </div>
+    </sortable-directive>
+
 </div>
 
 

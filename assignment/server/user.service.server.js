@@ -10,32 +10,36 @@ module.exports = function (app) {
     app.delete("/api/user/:uid", deleteUser);
 
 
-        var users = [
-            {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder",  email: "alice@wonderland.com"  },
-            {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley",  email: "bob@marley.com"},
-            {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia",  email: "charly@charly.com"},
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi", email: "jose@annunzi.com "}
-        ];
+        // var users = [
+        //     {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder",  email: "alice@wonderland.com"  },
+        //     {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley",  email: "bob@marley.com"},
+        //     {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia",  email: "charly@charly.com"},
+        //     {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi", email: "jose@annunzi.com "}
+        // ];
 
+        var userModel = require('../../public/assignment/model/user.model.server.js');
 
         function createUser(req, res) {
-            console.log("reached createUser");
             var newUser = req.body;
-            newUser._id = (new Date()).getTime();
-            users.push(newUser);
-            console.log(newUser);
-            res.send(newUser);
+            userModel.createUser(newUser)
+                .then(function(user) {
+                    console.log('sending user from server:' + user);
+                    res.send(user);
+                }),function(err) {
+                console.log(err);
+                }
+            // res.send(newUser);
         }
 
         function findUserById(req, res) {
             var userId = req.params['uid'];
-            for(var u in users) {
-                if( users[u]._id == userId) {
-                    res.send(users[u]);
-                    return;
-                }
+            userModel.findUserById(userId)
+                .then(function(user) {
+                    console.log('sending user from server:' + user);
+                    res.send(user);
+                }),function(err) {
+                console.log(err);
             }
-            res.sendStatus(404);
         }
 
         // function findUserByUsername(req, res) {
@@ -53,40 +57,68 @@ module.exports = function (app) {
             console.log("inside user cred");
             var username = req.query.username;
             var password = req.query.password;
-            for(var u in users) {
-                if( users[u].username == username &&
-                    users[u].password == password ) {
-                    console.log("reached before send");
-                    res.send(users[u]);
-                    return;
-                }
+
+            userModel.findUserByCredentials(username, password)
+                .then(function(user) {
+                    console.log('sending user from server:' + user);
+                    res.send(user);
+                }),function(err) {
+                console.log(err);
             }
-            res.sendStatus(404);
+
+            // for(var u in users) {
+            //     if( users[u].username == username &&
+            //         users[u].password == password ) {
+            //         console.log("reached before send");
+            //         res.send(users[u]);
+            //         return;
+            //     }
+            // }
+            // res.sendStatus(404);
         }
 
         function updateUser(req, res) {
             var userId = req.params['uid'];
-            for(var u in users) {
-                if(users[u]._id == userId) {
-                    users[u] = req.body;
+            var user = req.body;
+
+            userModel.updateUser(userId, user)
+                .then(function(user) {
+                    console.log('sending user from updateUser in server:' + JSON.stringify(user));
                     res.sendStatus(200);
-                    return;
-                }
+                }),function(err) {
+                console.log(err);
             }
-            res.sendStatus(404);
+
+            // for(var u in users) {
+            //     if(users[u]._id == userId) {
+            //         users[u] = req.body;
+            //         res.sendStatus(200);
+            //         return;
+            //     }
+            // }
+            // res.sendStatus(404);
 
         }
 
         function deleteUser(req, res) {
             var userId = req.params['uid'];
-            for(i=0; i<users.length; i++) {
-                if(users[i]._id == userId) {
-                    users.splice(i, 1);
-                    res.sendStatus(200);
-                    return;
-                }
+
+            userModel.deleteUser(userId)
+                .then(function(user) {
+                    console.log('sending user from server:' + user);
+                    res.send(200);
+                }),function(err) {
+                console.log(err);
             }
-            res.sendStatus(404);
+
+            // for(i=0; i<users.length; i++) {
+            //     if(users[i]._id == userId) {
+            //         users.splice(i, 1);
+            //         res.sendStatus(200);
+            //         return;
+            //     }
+            // }
+            // res.sendStatus(404);
         }
 
 

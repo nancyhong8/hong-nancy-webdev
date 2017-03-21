@@ -6,11 +6,15 @@ module.exports = function (app) {
     app.put("/api/widget/:wgid", updateWidget);
     app.delete("/api/widget/:wgid", deleteWidget);
     app.put("/page/:pid/widget?initial=index1&final=index2");
+    app.put("/page/:pid/widget?start=index1&end=index2", reorderWidget);
 
     var multer = require('multer'); // npm install multer --save
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
 
     app.post("/api/upload", upload.single('myFile'), uploadImage);
+
+    var widgetModel = require('../../public/assignment/model/widget.model.server.js');
+
 
     function uploadImage(req, res) {
         var userId        = req.body.userId;
@@ -32,76 +36,89 @@ module.exports = function (app) {
         res.redirect(url);
     }
 
-        var widgets = [
-            {"_id": "123", "widgetType": "HEADER", "pageId": "543", "size": 2, "text": "GIZMODO" },
-            {"_id": "234", "widgetType": "HEADER", "pageId": "543", "size": 4, "text": "Lorem ipsum" },
-            {"_id": "345", "widgetType": "IMAGE", "pageId": "543", "width": "100%", "url": "http://lorempixel.com/400/200" },
-            {"_id": "456", "widgetType": "HTML", "pageId": "543", "text": "<p>Lorem ipsum</p>" },
-            {"_id": "567", "widgetType": "HEADER", "pageId": "543", "size": 4, "text": "Lorem ipsum" },
-            {"_id": "678", "widgetType": "YOUTUBE", "pageId": "543", "width": "100%", "url": "http://youtube/AM2Ivdi9c4E" },
-            {"_id": "789", "widgetType": "HTML", "pageId": "543", "text": "<p>Lorem ipsum</p>" }
-        ];
+        // var widgets = [
+        //     {"_id": "123", "widgetType": "HEADER", "pageId": "543", "size": 2, "text": "GIZMODO" },
+        //     {"_id": "234", "widgetType": "HEADER", "pageId": "543", "size": 4, "text": "Lorem ipsum" },
+        //     {"_id": "345", "widgetType": "IMAGE", "pageId": "543", "width": "100%", "url": "http://lorempixel.com/400/200" },
+        //     {"_id": "456", "widgetType": "HTML", "pageId": "543", "text": "<p>Lorem ipsum</p>" },
+        //     {"_id": "567", "widgetType": "HEADER", "pageId": "543", "size": 4, "text": "Lorem ipsum" },
+        //     {"_id": "678", "widgetType": "YOUTUBE", "pageId": "543", "width": "100%", "url": "http://youtube/AM2Ivdi9c4E" },
+        //     {"_id": "789", "widgetType": "HTML", "pageId": "543", "text": "<p>Lorem ipsum</p>" }
+        // ];
 
 
 
         function createWidget(req, res) {
             var pageId = req.params['pid'];
             var widget = req.body;
-            widget._id = (new Date()).getTIme();
-            widget.pageId = pageId;
-            widgets.push(widget);
-            console.log("widget: " + widget);
-            res.send(widget);
+            widgetModel.createWidget(pageId, widget)
+                .then(function(widget) {
+                    console.log('sending website from server:' + widget);
+                    res.send(widget);
+                }),function(err) {
+                console.log(err);
+            }
         }
 
         function findWidgetsByPageId(req, res) {
-            console.log("reached findWidgetbyPageId");
             var pageId = req.params['pid'];
-            var nWidgets = [];
-            for(var w in widgets) {
-                if(widgets[w].pageId == pageId) {
-                    nWidgets.push(widgets[w]);
-                }
+            widgetModel.findAllWidgetsForPage(pageId)
+                .then(function(widget) {
+                    console.log('sending website from server:' + widget);
+                    res.send(widget);
+                }),function(err) {
+                console.log(err);
             }
-            console.log("widget: " + nWidgets);
-
-            res.send(nWidgets);
         }
 
         function findWidgetById(req, res) {
             var widgetId = req.params['wgid'];
-            for(var w in widgets) {
-                if(widgets[w]._id == widgetId) {
-                    res.send(widgets[w]);
-                    return;
-                }
+            widgetModel.findWidgetById(widgetId)
+                .then(function(widget) {
+                    console.log('sending website from server:' + widget);
+                    res.send(widget);
+                }),function(err) {
+                console.log(err);
             }
-            res.sendStatus(404);
         }
 
 
         function updateWidget(req, res) {
             var widgetId = req.params['wgid'];
-            for(var w in widgets) {
-                if(widgets[w]._id == widgetId) {
-                    widgets[w] = req.body;
+            var widget = req.body;
+            widgetModel.updateWidget(widgetId, widget)
+                .then(function(widget) {
+                    console.log('sending website from server:' + widget);
                     res.sendStatus(200);
-                    return;
-                }
+                }),function(err) {
+                res.sendStatus(404);
+                console.log(err);
             }
-            res.sendStatus(404);
         }
 
         function deleteWidget(req, res) {
             var widgetId = req.params['wgid'];
-            for(i=0; i<widgets.length; i++) {
-                if(widgets[i]._id == widgetId) {
-                    widgets.splice(i, 1);
+            widgetModel.deleteWidget(widgetId)
+                .then(function(widget) {
+                    console.log('sending website from server:' + widget);
                     res.sendStatus(200);
-                    return;
-                }
+                }),function(err) {
+                console.log(err);
+                res.sendStatus(404);
             }
-            res.sendStatus(400);
+        }
+
+        function reorderWidget(req, res) {
+            var pageId = req.params['pid'];
+            var start = req.query['start'];
+            var end = req.query['end'];
+            widgetModel.reorderWidget(pageId, start, end)
+                .then(function(widget) {
+                    res.sendStatus(200);
+                }),function(err) {
+                console.log(err);
+                res.sendStatus(404);
+            }
         }
 
 

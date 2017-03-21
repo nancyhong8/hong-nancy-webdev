@@ -15,7 +15,7 @@
         return api;
 
         function createPage(websiteId, page) {
-            return $http.post("/api/website/"+website+"/page", page);
+            return $http.post("/api/website/"+websiteId+"/page", page);
 
         }
 

@@ -15,8 +15,8 @@
         return api;
 
         function createWebsite(userId, website) {
+            console.log('website from service client create: ' + website);
             return $http.post("/api/user/"+userId+"/website", website);
-
         }
 
         function findWebsiteById(websiteId) {

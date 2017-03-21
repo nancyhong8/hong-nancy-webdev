@@ -59,7 +59,7 @@
         var vm = this;
         var userId = $routeParams["uid"];
         //var websiteId = $routeParams["wid"];
-        vm.website = {name: "", descrription: ""};
+        vm.website = {name: "", description: ""};
         vm.create = create;
         vm.profile = profile;
         vm.websiteList = websiteList;
@@ -74,6 +74,7 @@
                 }),(function(error) {
                     alert("error");
                 })
+            console.log('website from init: ' + JSON.stringify(vm.website));
         }
         init();
 
@@ -82,7 +83,8 @@
         }
 
         function create() {
-            var promise = WebsiteService.createWebsite(userId, vm.website);
+            console.log("website from controller create: " + JSON.stringify(vm.website));
+            var promise = WebsiteService.createWebsite(userId, JSON.stringify(vm.website));
             promise
                 .then(function(website) {
                     $location.url("/user/" + userId + "/website");

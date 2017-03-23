@@ -11,13 +11,17 @@ mongoose.connect('mongodb://localhost/web-dev');
 // app.set('view engine', 'ejs');
 
 
-
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));
 
 // require("./test/app.js")(app);
 
+
 require("./assignment/app.server.js")(app);
+// require('textangular/dist/textAngular-sanitize.min')(app);
+// require('textAngular')(app);
+// require("textAngular")(app);
+
 
 var port = process.env.PORT || 3000;
 

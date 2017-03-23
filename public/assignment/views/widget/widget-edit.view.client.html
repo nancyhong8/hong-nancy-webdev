@@ -21,7 +21,7 @@
 <! -- HEADING END -->
 
 
-<div ng-switch="model.widget.widgetType">
+<div ng-switch="model.widget.type">
     <div ng-switch-when="HEADER">
         <ng-include src="'views/widget/widget-heading.view.client.html'"></ng-include>
     </div>
@@ -30,6 +30,19 @@
     </div>
     <div ng-switch-when="YOUTUBE">
         <ng-include src="'views/widget/widget-youtube.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="HTML">
+        <ng-include src="'views/widget/widget-html.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="INPUT">
+        Text
+        <input ng-model="model.widget.text" class="form-control"/>
+        Rows
+        <input ng-model="model.widget.rows" class="form-control" type="number"/>
+        Placeholder
+        <input ng-model="model.widget.placeholder" class="form-control"/>
+        Formatted
+        <input ng-model="model.widget.formatted" type="checkbox"/>
     </div>
 </div>
 

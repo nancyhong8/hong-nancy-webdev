@@ -3,7 +3,7 @@ module.exports = function() {
     var mongoose = require('mongoose');
     var widgetSchema = new mongoose.Schema(
         {   '_page': [{type: mongoose.Schema.Types.ObjectId, ref:'webdevSPR17Pages'}],
-            'type': {enum: ['YOUTUBE', 'HEADING', 'IMAGE', 'HTML', 'INPUT']},
+            'type': {type: String, enum: ['HTML', 'INPUT', 'IMAGE', 'HEADER', 'YOUTUBE']},
             'name': String,
             'text': String,
             'placeholder': String,

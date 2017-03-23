@@ -14,7 +14,7 @@
         vm.newWebsite = newWebsite;
         vm.profile = profile;
         vm.edit = edit;
-        vm.website = {name: "", description: ""};
+        vm.website = {_userId: "", name: "", description: ""};
         vm.page = page;
 
         function init() {
@@ -59,7 +59,7 @@
         var vm = this;
         var userId = $routeParams["uid"];
         //var websiteId = $routeParams["wid"];
-        vm.website = {name: "", description: ""};
+        vm.website = {_userId: "", name: "", description: ""};
         vm.create = create;
         vm.profile = profile;
         vm.websiteList = websiteList;
@@ -74,7 +74,10 @@
                 }),(function(error) {
                     alert("error");
                 })
-            console.log('website from init: ' + JSON.stringify(vm.website));
+            // console.log('website from init: ' + JSON.stringify(vm.website));
+            console.log('[1]' + vm.website);
+            console.log(['123', vm.website]);
+
         }
         init();
 
@@ -84,7 +87,7 @@
 
         function create() {
             console.log("website from controller create: " + JSON.stringify(vm.website));
-            var promise = WebsiteService.createWebsite(userId, JSON.stringify(vm.website));
+            var promise = WebsiteService.createWebsite(userId, vm.website);
             promise
                 .then(function(website) {
                     $location.url("/user/" + userId + "/website");
@@ -114,7 +117,9 @@
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
         vm.profile = profile;
-        vm.website = {name: "", description: ""};
+        // vm.website = {_userId: "", name: "", description: ""};
+        vm.website = {};
+
         vm.websiteList = websiteList;
         vm.edit = edit;
         vm.page = page;
@@ -154,11 +159,12 @@
                     alert("error");
                 })
         }
-
+        //TODO DELETE ERROR
         function deleteWebsite() {
             var promise = WebsiteService.deleteWebsite(websiteId);
             promise
                 .then(function(website) {
+                    console.log("delete website from controller")
                     $location.url("/user/" + userId + "/website");
                 }),(function(error) {
                     alert("error");

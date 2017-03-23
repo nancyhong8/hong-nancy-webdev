@@ -19,6 +19,7 @@
                     // gets the new and old index then removes the temporary attribute
                     var newIndex = ui.item.index();
                     var oldIndex = $(this).attr('data-previndex');
+                    console.log("oldIndex: " + oldIndex);
                     $(this).removeAttr('data-previndex');
                 }
 

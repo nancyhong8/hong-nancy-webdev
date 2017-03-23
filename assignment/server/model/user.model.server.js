@@ -5,7 +5,7 @@
 
     var userSchema = require('./user.schema.server.js')();
     var userModel = mongoose.model('webdevSPR17Users', userSchema);
-    var deferred = q.defer();
+    // var deferred = q.defer();
 
     // var api = {
     //     "createUser": createUser,
@@ -18,6 +18,7 @@
     // return api;
 
     function createUser(user) {
+        var deferred = q.defer();
 
         userModel.create({'username': user.username, 'password': user.password}, function(err, user) {
             if(user) {
@@ -29,20 +30,29 @@
     }
 
     function findUserById(userId) {
-        userModel.findOne({'_id': userId}, function(err, user) {
+        var deferred = q.defer();
+        console.log("findUserById Id: ");
+        console.log(userId);
+        userModel.findById(userId, function(err, user) {
+            if(err) { console.log(err)}
+            console.log("findUserByUsername in user model");
+            console.log(user);
             deferred.resolve(user);
         });
         return deferred.promise;
 }
 
     function findUserByUsername(username) {
+        var deferred = q.defer();
         userModel.findOne({'username': username}, function(err, user) {
+
             deferred.resolve(user);
         });
         return deferred.promise;
     }
 
     function findUserByCredentials(username, password) {
+        var deferred = q.defer();
         userModel.findOne({'username': username, 'password': password}, function(err, user) {
             deferred.resolve(user);
         });
@@ -50,11 +60,13 @@
     }
 
     function updateUser(userId, user) {
-        userModel.update({'_id': userId}, {
-            $set: {'username': user.username},
-            $set: {'email': user.email},
-            $set: {'firstName': user.firstName},
-            $set: {'lastName': user.lastName}
+        var deferred = q.defer();
+        userModel.update({'_id': userId}, {$set: {
+            'username': user.username,
+            'email': user.email,
+            'firstName': user.firstName,
+            'lastName': user.lastName
+        }
         }, function(err, user) {
             deferred.resolve(user);
         });
@@ -62,12 +74,13 @@
     }
 
     function deleteUser(userId) {
-        userModel.findOne({'_id': userId}).remove(function(err) {
-            if(err) {
-                console.log(err);
-            }
+        var deferred = q.defer();
 
-        })
+        userModel.findByIdAndRemove(userId, function(err, user) {
+            deferred.resolve(user);
+        });
+
+
         return deferred.promise;
     }
 

@@ -17,6 +17,8 @@
         vm.profile = profile;
         vm.oldIndex = "";
         vm.newIndex = "";
+        console.log("newIndex: " + vm.newIndex);
+        console.log("oldINdex: " + vm.oldIndex);
 
 
         function init() {
@@ -48,7 +50,28 @@
             return $sce.trustAsResourceUrl(baseUrl);
         }
         function edit(widgetId) {
-            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+            console.log("widgetId from edit in edit controller:" + widgetId);
+            var promise = WidgetService.findWidgetById(widgetId);
+            promise
+                .then(function(widget) {
+                    console.log(widget);
+                    var type = widget.data.type;
+                    if(type == 'HTML') {
+                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/html");
+                    }
+                    if(type == 'YOUTUBE') {
+                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/youtube");
+                    }
+                    if(type == 'IMAGE') {
+                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/image");
+                    }
+                    if(type == 'HEADER') {
+                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/header");
+                    }
+                    if(type == 'TEXT') {
+                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/text");
+                    }
+                })
         }
     }
 
@@ -59,6 +82,7 @@
         var userId = $routeParams["uid"];
         var websiteId = $routeParams["wid"];
         var pageId = $routeParams["pid"];
+
         vm.profile = function() {
             $location.url("/user/" + userId);
         }
@@ -73,6 +97,14 @@
         }
         vm.youtubePage = function() {
             $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/youtube");
+        }
+        vm.htmlPage = function() {
+            console.log("htmlPage from new widget controller");
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/html");
+        }
+        vm.inputPage = function() {
+            console.log("inputPage from new widget controller");
+            $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/input");
         }
 
     }
@@ -94,14 +126,24 @@
 
 
         function init() {
+            console.log("widgetId: " + widgetId);
             if (widgetId == "header") {
-                vm.widget = {"widgetType": "HEADER"};
+                console.log("reached header");
+                vm.widget = {'type': 'HEADER'};
             }
-            if (widgetId == "image") {
-                vm.widget = {"widgetType": "IMAGE"};
+            else if (widgetId == "image") {
+                vm.widget = {"type": "IMAGE"};
             }
-            if (widgetId == "youtube") {
-                vm.widget = {"widgetType": "YOUTUBE"};
+            else if (widgetId == "youtube") {
+                vm.widget = {"type": "YOUTUBE"};
+            }
+            else if (widgetId == "html") {
+                console.log("init edit controller vierified it is html type")
+                vm.widget = {"type": "HTML"};
+            }
+            else if (widgetId == "input") {
+                console.log("init edit controller vierified it is input type")
+                vm.widget = {"type": "INPUT"};
             }
             else {
                 console.log("reached edit init");
@@ -117,6 +159,10 @@
         init();
 
         function updateWidget(widget) {
+            console.log("updateWidget controller ");
+            console.log(pageId);
+            vm.widget._page = pageId;
+            console.log(vm.widget);
             var promise = WidgetService.updateWidget(widgetId, vm.widget);
             promise
                 .then(function(widget) {

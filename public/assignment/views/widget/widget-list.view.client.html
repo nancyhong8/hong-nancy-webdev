@@ -32,9 +32,10 @@
 
 <!--<div class="container" sortable-directive="">-->
 <div class="container">
-    <sortable-directive newIndex="newIndex" oldIndex="oldIndex">
+    <sortable-directive newIndex="model.newIndex" oldIndex="model.oldIndex">
 
 
+        <!--<iframe width="100%" ng-src="https://www.youtube.com/embed/AM2Ivdi9c4E" frameborder="0" allowfullscreen="" src="https://www.youtube.com/embed/AM2Ivdi9c4E"></iframe>-->
 
     <div ng-repeat="widget in model.widgets">
 
@@ -43,19 +44,29 @@
             <tbody>
             <tr>
                 <td>
-                    <div ng-switch="widget.widgetType">
+                    <div ng-switch="widget.type">
 
                         <div ng-switch-when="HEADER">
-                            <h3>{{widget.text}}</h3>
+                            <h4>{{widget.text}}</h4>
                         </div>
                         <div ng-switch-when="IMAGE">
                             <img ng-src="{{widget.url}}" width="{{widget.width}}"/>
                         </div>
+                        <!--<div ng-switch-when="YOUTUBE" class="youtube-widget">-->
                         <div ng-switch-when="YOUTUBE">
+                            <!--<p>asdf asdf asdf asdf asdf</p>-->
                             <iframe width="100%" ng-src="{{model.doYouTrustUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <div ng-switch-when="HTML">
                             {{widget.text}}
+                        </div>
+                        <div ng-switch-when="INPUT">
+                            <div ng-if="widget.formatted" text-angular ta-toolbar="..."></div>
+                            <input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)"
+                                   placeholder="{{widget.textInput.placeholder}}" class="form-control"/>
+                            <textarea ng-if="!widget.formatted && (widget.rows > 1)"
+                                      rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+                                      class="form-control">{{widget.text}}</textarea>
                         </div>
                     </div>
                 </td>

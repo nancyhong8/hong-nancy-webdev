@@ -30,6 +30,8 @@
 
 
         function updateWidget(widgetId, widget) {
+            console.log("updatewidget from service client");
+            console.log(widget);
             return $http.put("/api/widget/"+widgetId, widget);
         }
 

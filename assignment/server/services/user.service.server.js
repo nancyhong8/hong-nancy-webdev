@@ -17,7 +17,7 @@ module.exports = function (app) {
         //     {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi", email: "jose@annunzi.com "}
         // ];
 
-        var userModel = require('../../public/assignment/model/user.model.server.js');
+        var userModel = require('../model/user.model.server.js');
 
         function createUser(req, res) {
             var newUser = req.body;
@@ -60,11 +60,17 @@ module.exports = function (app) {
 
             userModel.findUserByCredentials(username, password)
                 .then(function(user) {
-                    console.log('sending user from server:' + user);
-                    res.send(user);
-                }),function(err) {
-                console.log(err);
-            }
+                    if(user) {
+                        console.log("FindUserBy Credentials service verser");
+                        console.log(user);
+                        res.send(user);
+                    } else {
+                        console.log("find user by crednetials error");
+                        res.sendStatus(404);
+                    }
+                },function(err) {
+                res.sendStatus(500);
+            })
 
             // for(var u in users) {
             //     if( users[u].username == username &&

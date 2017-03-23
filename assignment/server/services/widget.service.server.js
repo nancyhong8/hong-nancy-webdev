@@ -13,7 +13,7 @@ module.exports = function (app) {
 
     app.post("/api/upload", upload.single('myFile'), uploadImage);
 
-    var widgetModel = require('../../public/assignment/model/widget.model.server.js');
+    var widgetModel = require('../model/widget.model.server.js');
 
 
     function uploadImage(req, res) {
@@ -51,6 +51,7 @@ module.exports = function (app) {
         function createWidget(req, res) {
             var pageId = req.params['pid'];
             var widget = req.body;
+            widget._page = pageId;
             widgetModel.createWidget(pageId, widget)
                 .then(function(widget) {
                     console.log('sending website from server:' + widget);
@@ -85,8 +86,11 @@ module.exports = function (app) {
 
         function updateWidget(req, res) {
             var widgetId = req.params['wgid'];
+            var pageId = req.params['pid'];
             var widget = req.body;
-            widgetModel.updateWidget(widgetId, widget)
+            console.log("updatewidget from server");
+            console.log(widget);
+            widgetModel.createWidget(pageId, widget)
                 .then(function(widget) {
                     console.log('sending website from server:' + widget);
                     res.sendStatus(200);
@@ -109,16 +113,16 @@ module.exports = function (app) {
         }
 
         function reorderWidget(req, res) {
-            var pageId = req.params['pid'];
-            var start = req.query['start'];
-            var end = req.query['end'];
-            widgetModel.reorderWidget(pageId, start, end)
-                .then(function(widget) {
-                    res.sendStatus(200);
-                }),function(err) {
-                console.log(err);
-                res.sendStatus(404);
-            }
+            // var pageId = req.params['pid'];
+            // var start = req.query['start'];
+            // var end = req.query['end'];
+            // widgetModel.reorderWidget(pageId, start, end)
+            //     .then(function(widget) {
+            //         res.sendStatus(200);
+            //     }),function(err) {
+            //     console.log(err);
+            //     res.sendStatus(404);
+            // }
         }
 
 

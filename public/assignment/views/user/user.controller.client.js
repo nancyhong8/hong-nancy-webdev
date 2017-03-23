@@ -17,27 +17,16 @@
 
         function login() {
             var promise = UserService.findUserByCredentials(vm.user.username, vm.user.password);
-
             promise
                 .then(function(user) {
+                    console.log("finduserByCredentials controller success");
                     if(user.data) {
                         $location.url("/user/"+user.data._id);
                     }
-                }),function(error) {
-                    alert(error);
-                }
-
-
-                // .success(function(user) {
-                //     if (user) {
-                //         $location.url("/user/"+user._id);
-                //     } else {
-                //         vm.error = "Unable to login";
-                //     }
-                // })
-                // .error(function(err) {
-                //     alert("Error");
-                // })
+                },function(error) {
+                console.log("finduserByCredentials controller wrong");
+                    vm.error = "Login credentials not found";
+                })
 
         }
 
@@ -51,7 +40,7 @@
         var vm = this;
         vm.register = register;
         var userId = $routeParams["uid"];
-        vm.user = {username: "", password: ""};
+        vm.user = {firstName: "", lastName: "", username: "", password: ""};
 
 
         function register() {
@@ -73,7 +62,8 @@
     function profileController($location, $routeParams, UserService) {
         var vm = this;
         var userId = $routeParams["uid"];
-        vm.user = {};
+        vm.user = {firstName: "", lastName: ""
+        };
         vm.updateUser = updateUser;
         vm.logout = logout;
         vm.websites = websites;

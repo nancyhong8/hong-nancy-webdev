@@ -6,7 +6,7 @@ module.exports = function (app) {
     app.put("/api/page/:pid", updatePage);
     app.delete("/api/page/:pid", deletePage);
 
-    var pageModel = require('../../public/assignment/model/page.model.server.js');
+    var pageModel = require('../model/page.model.server.js');
 
 
         // var pages = [
@@ -20,6 +20,9 @@ module.exports = function (app) {
         function createPage(req, res) {
             var newPage = req.body;
             var websiteId = req.params['wid'];
+            newPage._website = websiteId;
+            console.log("createPage from service server:");
+            console.log(newPage);
             pageModel.createPage(websiteId, newPage)
                 .then(function(page) {
                     res.json(page);
@@ -65,7 +68,7 @@ module.exports = function (app) {
 
         function deletePage(req, res) {
             var pageId = req.params['pid'];
-            pageModel.deletePage
+            pageModel.deletePage(pageId)
                 .then(function(page) {
                     res.sendStatus(200);
                 }),function(err) {

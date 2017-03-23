@@ -16,16 +16,19 @@ module.exports = function (app) {
         //     {"_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
         // ];
 
-    var websiteModel = require('../../public/assignment/model/website.model.server.js');
+    var websiteModel = require('../model/website.model.server.js');
 
 
         function createWebsite(req, res) {
             var userId = req.params['uid'];
-            var newWebsite = req.query['website'];
-            console.log('website from server create: ' + newWebsite);
-            websiteModel.createWebsiteForUser(userId, JSON.stringify(newWebsite))
+            var newWebsite = req.body;
+            newWebsite._userId = userId;
+            console.log('website from server create');
+            console.log(newWebsite);
+            websiteModel.createWebsiteForUser(userId, newWebsite)
                 .then(function(website) {
-                    console.log('sending website from server:' + website);
+                    console.log('sending website from server:');
+                    console.log(website);
                     res.send(website);
                 }),function(err) {
                 console.log(err);
@@ -34,9 +37,12 @@ module.exports = function (app) {
 
         function findWebsiteById(req, res) {
             var websiteId = req.params['wid'];
+            console.log('findWebsiteById in service server');
+            console.log(websiteId);
             websiteModel.findWebsiteById(websiteId)
                 .then(function(website) {
-                    console.log('sending website from server:' + website);
+                    console.log('findWebsiteById website from server:');
+                    console.log(website);
                     res.send(website);
                 }),function(err) {
                 console.log(err);
@@ -71,7 +77,7 @@ module.exports = function (app) {
             var websiteId = req.params['wid'];
             websiteModel.deleteWebsite(websiteId)
                 .then(function(website) {
-                    console.log('sending website from server:' + website);
+                    console.log("deleteWebiste from service server");
                     res.sendStatus(200);
                 }),function(err) {
                 console.log(err);

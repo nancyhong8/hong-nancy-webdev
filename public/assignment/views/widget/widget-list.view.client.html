@@ -31,14 +31,14 @@
 
 
 <!--<div class="container" sortable-directive="">-->
-<div class="container">
-    <sortable-directive newIndex="model.newIndex" oldIndex="model.oldIndex">
+<div class="container" sortable-directive on-stop="model.orderChanged(1, 0)">
+    <!--<sortable-directive newIndex="model.newIndex" oldIndex="model.oldIndex">-->
 
 
         <!--<iframe width="100%" ng-src="https://www.youtube.com/embed/AM2Ivdi9c4E" frameborder="0" allowfullscreen="" src="https://www.youtube.com/embed/AM2Ivdi9c4E"></iframe>-->
 
     <div ng-repeat="widget in model.widgets">
-
+<h1>{{vm.oldIndex}}</h1>
 
         <table>
             <tbody>
@@ -53,7 +53,7 @@
                             <img ng-src="{{widget.url}}" width="{{widget.width}}"/>
                         </div>
                         <!--<div ng-switch-when="YOUTUBE" class="youtube-widget">-->
-                        <div ng-switch-when="YOUTUBE">
+                        <div ng-switch-when="YOUTUBE" class="youtube-widget">
                             <!--<p>asdf asdf asdf asdf asdf</p>-->
                             <iframe width="100%" ng-src="{{model.doYouTrustUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
                         </div>
@@ -80,40 +80,8 @@
         </table>
 
 
-    <!--<div ng-switch="widget.widgetType">-->
-
-            <!--<div ng-switch-when="HEADER">-->
-                <!--<h3>{{widget.text}}</h3>-->
-            <!--</div>-->
-            <!--<div ng-switch-when="IMAGE">-->
-                <!--<img ng-src="{{widget.url}}" width="{{widget.width}}"/>-->
-            <!--</div>-->
-            <!--<div ng-switch-when="YOUTUBE">-->
-                <!--<iframe width="100%" ng-src="{{model.doYouTrustUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>-->
-            <!--</div>-->
-            <!--<div ng-switch-when="HTML">-->
-                <!--{{widget.text}}-->
-            <!--</div>-->
-        <!--</div>-->
-
-
-
-        <!--<table>-->
-            <!--<tbody>-->
-            <!--<tr>-->
-                <!--<td>-->
-                    <!--{{widget.name}}-->
-                <!--</td>-->
-                <!--<td class="right-side-glyphicon">-->
-                    <!--&lt;!&ndash;<a href="website-edit.view.client.html">&ndash;&gt;-->
-                    <!--<span class="glyphicon glyphicon-cog"></span>-->
-                    <!--</a>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--</tbody>-->
-        <!--</table>-->
     </div>
-    </sortable-directive>
+    <!--</sortable-directive>-->
 
 </div>
 

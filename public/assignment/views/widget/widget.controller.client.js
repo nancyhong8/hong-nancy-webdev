@@ -5,7 +5,7 @@
         .controller("newWidgetController", newWidgetController)
         .controller("editWidgetController", editWidgetController);
 
-    function widgetListController($sce, $location, $routeParams, WidgetService) {
+    function widgetListController($sce, $location, $routeParams, WidgetService, $scope) {
         var vm = this;
         var pageId = $routeParams["pid"];
         var userId = $routeParams["uid"];
@@ -15,10 +15,20 @@
         vm.pageId = pageId;
         vm.pages = pages;
         vm.profile = profile;
-        vm.oldIndex = "";
-        vm.newIndex = "";
+        // vm.oldIndex = "";
+        // vm.newIndex = "";
         console.log("newIndex: " + vm.newIndex);
         console.log("oldINdex: " + vm.oldIndex);
+
+        vm.orderChanged = function(start, end) {
+            var promise = WidgetService.reorderWidget(pageId, start, end)
+            promise
+                .then(function(widget) {
+                    console.log(widget);
+                },function(error) {
+                    console.log(error);
+                })
+        }
 
 
         function init() {
@@ -57,7 +67,7 @@
                     console.log(widget);
                     var type = widget.data.type;
                     if(type == 'HTML') {
-                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/html");
+                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widget.data._id + "html");
                     }
                     if(type == 'YOUTUBE') {
                         $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/youtube");
@@ -66,7 +76,7 @@
                         $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/image");
                     }
                     if(type == 'HEADER') {
-                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/header");
+                        $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widget.data._id + "/header");
                     }
                     if(type == 'TEXT') {
                         $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/text");
@@ -75,13 +85,34 @@
         }
     }
 
-    function newWidgetController($routeParams, $location) {
+    function newWidgetController($routeParams, $location, WidgetService) {
         var vm = this;
         var widgetId = $routeParams["wgid"];
 
         var userId = $routeParams["uid"];
         var websiteId = $routeParams["wid"];
         var pageId = $routeParams["pid"];
+        var type = $routeParams["type"];
+        function init() {
+            if (type == "header") {
+                vm.widget = {'type': 'HEADER'};
+            }
+            else if (type == "image") {
+                vm.widget = {"type": "IMAGE"};
+            }
+            else if (type == "youtube") {
+                vm.widget = {"type": "YOUTUBE"};
+            }
+            else if (type == "html") {
+                console.log("init edit controller vierified it is html type")
+                vm.widget = {"type": "HTML"};
+            }
+            else if (type == "input") {
+                console.log("init edit controller vierified it is input type")
+                vm.widget = {"type": "INPUT"};
+            }
+        }
+        init();
 
         vm.profile = function() {
             $location.url("/user/" + userId);
@@ -106,6 +137,19 @@
             console.log("inputPage from new widget controller");
             $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/input");
         }
+        vm.updateWidget = updateWidget;
+        function updateWidget(widget) {
+
+            vm.widget._page = pageId;
+            console.log(vm.widget);
+            var promise = WidgetService.createWidget(pageId, vm.widget);
+            promise
+                .then(function(widget) {
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+                }),(function(error) {
+                alert("error");
+            })
+        }
 
     }
 
@@ -115,6 +159,7 @@
         var userId = $routeParams["uid"];
         var websiteId = $routeParams["wid"];
         var pageId = $routeParams["pid"];
+        var type = $routeParams["type"];
         vm.widgetId = widgetId;
         vm.userId = userId;
         vm.websiteId = websiteId;
@@ -126,51 +171,35 @@
 
 
         function init() {
-            console.log("widgetId: " + widgetId);
-            if (widgetId == "header") {
-                console.log("reached header");
-                vm.widget = {'type': 'HEADER'};
-            }
-            else if (widgetId == "image") {
-                vm.widget = {"type": "IMAGE"};
-            }
-            else if (widgetId == "youtube") {
-                vm.widget = {"type": "YOUTUBE"};
-            }
-            else if (widgetId == "html") {
-                console.log("init edit controller vierified it is html type")
-                vm.widget = {"type": "HTML"};
-            }
-            else if (widgetId == "input") {
-                console.log("init edit controller vierified it is input type")
-                vm.widget = {"type": "INPUT"};
-            }
-            else {
-                console.log("reached edit init");
-                var promise = WidgetService.findWidgetById(widgetId);
-                promise
-                    .then(function(widget) {
-                        vm.widget = widget.data;
-                    }),(function(error) {
-                    alert("error");
-                })
-            }
+            console.log("widget Id : " + widgetId);
+            var promise = WidgetService.findWidgetById(widgetId);
+            promise
+                .then(function(widget) {
+                    vm.widget = widget.data;
+                    console.log(vm.widget);
+                    console.log("reached found widget");
+                }),(function(error) {
+                    console.log(error);
+            })
+
         }
         init();
 
         function updateWidget(widget) {
             console.log("updateWidget controller ");
-            console.log(pageId);
-            vm.widget._page = pageId;
+            console.log("widget: ");
             console.log(vm.widget);
+            console.log("pageID " + pageId);
+            vm.widget._page = pageId;
             var promise = WidgetService.updateWidget(widgetId, vm.widget);
             promise
                 .then(function(widget) {
+                    console.log("reached success");
                     $location.url("/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
-                }),(function(error) {
+                },(function(error) {
+                    console.log(error);
                     alert("error");
-                })
-
+                }))
         }
 
         function deleteWidget() {

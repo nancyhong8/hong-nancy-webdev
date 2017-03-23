@@ -9,34 +9,15 @@ var pageModel = require('./page.model.server.js');
 
 function createWidget(pageId, widget) {
     var deferred = q.defer();
-    console.log('createWidget before creating');
-    console.log(widget);
-
-    widgetModel.findById(widget, function(err, returnedWidget) {
-        if(err) {
-            widgetModel.create(widget, function(err, newWidget) {
-                if(newWidget) {
-                    console.log("createWidget from model");
-                    console.log(newWidget);
-                    deferred.resolve(newWidget);
-                    pageModel.findByIdAndUpdate(pageId,
-                        {$push: {"widgets": {_id: newWidget._id}}},
-                        {safe: true, upsert: true, new : true},
-                        function(err, result) {
-                            console.log(err);
-                        });
-                }
-                else {
-                    console.log("error: " + err);
-                }
-
-            });
-        }
-        else if(returnedWidget) {
-            console.log('createWidget udpate model');
-            console.log(widget);
-            console.log(returnedWidget._id);
-            updateWidget(returnedWidget._id, widget);
+    widgetModel.create(widget, function(err, widget) {
+        if(widget) {
+            deferred.resolve(widget);
+            pageModel.findByIdAndUpdate(pageId,
+                {$push: {"widgets": {_id: widget._id}}},
+                {safe: true, upsert: true, new : true},
+                function(err, result) {
+                    console.log(err);
+                })
         }
     })
 
@@ -48,7 +29,6 @@ function findAllWidgetsForPage(pageId) {
 
     widgetModel.find({_page: pageId}, function(err, widget) {
         deferred.resolve(widget);
-        console.log('widget from model findWebsiteByUser: ' + widget);
     });
     return deferred.promise;
 }
@@ -60,7 +40,6 @@ function findWidgetById(widgetId) {
 
     widgetModel.findById(widgetId, function(err, widget) {
         deferred.resolve(widget);
-        console.log('widget from model findWebsiteById: ' + widget);
     });
     return deferred.promise;
 }
@@ -79,9 +58,7 @@ function updateWidget(widgetId, widget) {
             'text': widget.text,
             'size': widget.size
         }}, function(err, widget) {
-            console.log("after update header");
-            console.log(widget);
-            console.log(err)
+
             deferred.resolve(widget);
         })
     }
@@ -93,9 +70,6 @@ function updateWidget(widgetId, widget) {
             'url': widget.url,
             'width': widget.width
         }}, function(err, widget) {
-            console.log("after update");
-            console.log(widget);
-            console.log(err)
             deferred.resolve(widget);
         });
     }
@@ -106,9 +80,7 @@ function updateWidget(widgetId, widget) {
             'url': widget.url,
             'width': widget.width,
         }}, function(err, widget) {
-            console.log("after update");
-            console.log(widget);
-            console.log(err)
+
             deferred.resolve(widget);
         });
     }
@@ -119,7 +91,6 @@ function updateWidget(widgetId, widget) {
             deferred.resolve(widget);
         });
     }
-    console.log("reaching return");
     return deferred.promise;
 }
 
@@ -127,23 +98,46 @@ function deleteWidget(widgetId) {
     var deferred = q.defer();
 
     widgetModel.findByIdAndRemove(widgetId, function(err, widget) {
-        pageId = widget._page;
-        pageModel.findPageById(pageId)
-            .then(function (page) {
-                page.widgets.splice(page.widgets.indexOf(widgetId), 1);
-                page.save(function (response) {
-                    deferred.resolve(response);
-                });
-            });
+        console.log(widget);
+        console.log("widget page id from delete widget");
+            pageId = widget._page;
+            pageModel.findPageById(pageId)
+                .then(function (page) {
+                    page.widgets.splice(page.widgets.indexOf(widgetId), 1);
+                    page.save(function (response) {
+                        deferred.resolve(response);
+                    });
+                },function(err) {
+                    console.log(err);
+                })
+
+
     });
 
     return deferred.promise;
 }
 
+
 function reorderWidget(pageId, start, end) {
-    
+    var deferred = q.defer();
+    console.log("reoder from model");
+    console.log("pageId: " + pageId + "start" + start + "end: " + end);
+    pageModel.findPageById(pageId)
+        .then(function (page) {
+            console.log("page from reodrewidget model");
+            console.log(page);
+            page.widgets.splice(end, 0, page.widgets.splice(start, 1)[0]);
+            page.markModified('widgets');
+            page.save(function(response) {
+                console.log("saved reordered wigdet from model");
+                deferred.resolve(response);
+            });
+        });
+    return deferred.promise;
 
 }
+
+// reorderWidget("58d3c7fa4694012d58d7141d", 0, 1);
 
 widgetModel.createWidget = createWidget;
 widgetModel.findAllWidgetsForPage = findAllWidgetsForPage;

@@ -10,18 +10,19 @@ function createPage(websiteId, page) {
     var deferred = q.defer();
 
 
-    pageModel.create(page, function (err, website) {
-        // console.log('findUserById create website');
-        // console.log(website);
-        deferred.resolve(page);
-        websiteModel.findByIdAndUpdate(website,
-            {$push: {"pages": {_id: page._id}}},
-            {safe: true, upsert: true, new : true},
-            function(err, result) {
-                console.log("should've pushed pages");
-                console.log(result);
-                console.log(err);
-            });
+    pageModel.create(page, function (err, page) {
+        if(page) {
+            deferred.resolve(page);
+            websiteModel.findByIdAndUpdate(page._website,
+                {$push: {"pages": {_id: page._id}}},
+                {safe: true, upsert: true, new : true},
+                function(err, result) {
+                    console.log("should've pushed pages");
+                    console.log(result);
+                    console.log(err);
+                });
+        }
+
     });
 
     return deferred.promise;

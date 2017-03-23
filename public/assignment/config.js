@@ -65,9 +65,14 @@
                 controller: "newWidgetController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/:type", {
                 templateUrl: "views/widget/widget-edit.view.client.html",
                 controller: "editWidgetController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/website/:wid/page/:pid/widget/:type", {
+                templateUrl: "views/widget/widget-edit.view.client.html",
+                controller: "newWidgetController",
                 controllerAs: "model"
             })
 

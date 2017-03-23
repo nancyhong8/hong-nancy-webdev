@@ -5,8 +5,8 @@ module.exports = function (app) {
     app.get("/api/widget/:wgid", findWidgetById);
     app.put("/api/widget/:wgid", updateWidget);
     app.delete("/api/widget/:wgid", deleteWidget);
-    app.put("/page/:pid/widget?initial=index1&final=index2");
-    app.put("/page/:pid/widget?start=index1&end=index2", reorderWidget);
+    app.get("/re/page/:pid/start/:index1/end/:index2", reorderWidget);
+    app.put("/page/:pid/widget?start=index1&end=index2");
 
     var multer = require('multer'); // npm install multer --save
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
@@ -54,7 +54,7 @@ module.exports = function (app) {
             widget._page = pageId;
             widgetModel.createWidget(pageId, widget)
                 .then(function(widget) {
-                    console.log('sending website from server:' + widget);
+                    console.log('createWidget from server:' + widget);
                     res.send(widget);
                 }),function(err) {
                 console.log(err);
@@ -65,7 +65,7 @@ module.exports = function (app) {
             var pageId = req.params['pid'];
             widgetModel.findAllWidgetsForPage(pageId)
                 .then(function(widget) {
-                    console.log('sending website from server:' + widget);
+                    console.log('findWidgetByPageID from server:' + widget);
                     res.send(widget);
                 }),function(err) {
                 console.log(err);
@@ -76,7 +76,7 @@ module.exports = function (app) {
             var widgetId = req.params['wgid'];
             widgetModel.findWidgetById(widgetId)
                 .then(function(widget) {
-                    console.log('sending website from server:' + widget);
+                    console.log('findWidgetById from server:' + widget);
                     res.send(widget);
                 }),function(err) {
                 console.log(err);
@@ -90,9 +90,9 @@ module.exports = function (app) {
             var widget = req.body;
             console.log("updatewidget from server");
             console.log(widget);
-            widgetModel.createWidget(pageId, widget)
+            widgetModel.updateWidget(widgetId, widget)
                 .then(function(widget) {
-                    console.log('sending website from server:' + widget);
+                    console.log("upate widget from server:" + widget);
                     res.sendStatus(200);
                 }),function(err) {
                 res.sendStatus(404);
@@ -104,7 +104,7 @@ module.exports = function (app) {
             var widgetId = req.params['wgid'];
             widgetModel.deleteWidget(widgetId)
                 .then(function(widget) {
-                    console.log('sending website from server:' + widget);
+                    console.log('delete widget sending widget from server:' + widget);
                     res.sendStatus(200);
                 }),function(err) {
                 console.log(err);
@@ -113,16 +113,17 @@ module.exports = function (app) {
         }
 
         function reorderWidget(req, res) {
-            // var pageId = req.params['pid'];
-            // var start = req.query['start'];
-            // var end = req.query['end'];
-            // widgetModel.reorderWidget(pageId, start, end)
-            //     .then(function(widget) {
-            //         res.sendStatus(200);
-            //     }),function(err) {
-            //     console.log(err);
-            //     res.sendStatus(404);
-            // }
+            var pageId = req.params['pid'];
+            var start = req.params['start'];
+            var end = req.params['end'];
+            widgetModel.reorderWidget(pageId, start, end)
+                .then(function(widget) {
+                    console.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+                    res.sendStatus(200);
+                }),function(err) {
+                console.log(err);
+                res.sendStatus(404);
+            }
         }
 
 

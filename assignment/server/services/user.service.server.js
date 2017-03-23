@@ -23,7 +23,6 @@ module.exports = function (app) {
             var newUser = req.body;
             userModel.createUser(newUser)
                 .then(function(user) {
-                    console.log('sending user from server:' + user);
                     res.send(user);
                 }),function(err) {
                 console.log(err);
@@ -54,18 +53,14 @@ module.exports = function (app) {
         // }
 
         function findUserByCredentials(req, res) {
-            console.log("inside user cred");
             var username = req.query.username;
             var password = req.query.password;
 
             userModel.findUserByCredentials(username, password)
                 .then(function(user) {
                     if(user) {
-                        console.log("FindUserBy Credentials service verser");
-                        console.log(user);
                         res.send(user);
                     } else {
-                        console.log("find user by crednetials error");
                         res.sendStatus(404);
                     }
                 },function(err) {
@@ -89,7 +84,6 @@ module.exports = function (app) {
 
             userModel.updateUser(userId, user)
                 .then(function(user) {
-                    console.log('sending user from updateUser in server:' + JSON.stringify(user));
                     res.sendStatus(200);
                 }),function(err) {
                 console.log(err);
@@ -111,7 +105,6 @@ module.exports = function (app) {
 
             userModel.deleteUser(userId)
                 .then(function(user) {
-                    console.log('sending user from server:' + user);
                     res.send(200);
                 }),function(err) {
                 console.log(err);

@@ -17,7 +17,10 @@ function createWidget(pageId, widget) {
                 {safe: true, upsert: true, new : true},
                 function(err, result) {
                     console.log(err);
+                    console.log("createWidget model result after finding page");
+                    console.log(result);
                 })
+
         }
     })
 

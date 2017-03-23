@@ -15,10 +15,8 @@
         vm.pageId = pageId;
         vm.pages = pages;
         vm.profile = profile;
-        // vm.oldIndex = "";
-        // vm.newIndex = "";
-        console.log("newIndex: " + vm.newIndex);
-        console.log("oldINdex: " + vm.oldIndex);
+
+
 
         vm.orderChanged = function(start, end) {
             var promise = WidgetService.reorderWidget(pageId, start, end)
@@ -85,7 +83,7 @@
         }
     }
 
-    function newWidgetController($routeParams, $location, WidgetService) {
+    function newWidgetController($routeParams, $location, WidgetService, $sce) {
         var vm = this;
         var widgetId = $routeParams["wgid"];
 
@@ -105,7 +103,8 @@
             }
             else if (type == "html") {
                 console.log("init edit controller vierified it is html type")
-                vm.widget = {"type": "HTML"};
+                vm.widget = {"type": "HTML", "text": ""};
+                vm.widget.text = $sce.trustAsHtml(vm.widget.text);
             }
             else if (type == "input") {
                 console.log("init edit controller vierified it is input type")

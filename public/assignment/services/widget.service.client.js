@@ -42,8 +42,9 @@
 
         /// TODO this function is giving me error
         function reorderWidget(pageId, start, end) {
+            var indices = [start, end];
             // return $http.get("/re/page/" + pageId + "/start/:" + start + "/end/:" + end);
-            return $http.put("/page/" + pageId + "/widget?start=" + start + "&end=" + end);
+            return $http.put("/page/" + pageId + "/widget", indices);
 
         }
 

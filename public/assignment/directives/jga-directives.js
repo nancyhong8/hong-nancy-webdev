@@ -16,6 +16,7 @@
                 stop:function (event, ui) {
                     endIndex = ui.item.index();
                     console.log("endIndex from dir: " + endIndex)
+                    console.log("start from dir " + startIndex);
                     if(attrs.onStop) {
                         // scope.model[attrs.onStop] = 'orderChanged'
                         scope.$apply(attrs.onStop);
@@ -26,6 +27,7 @@
                 }
             }).disableSelection();
             scope: {startIndex: "="}
+            attrs: "orderChanged"
         };
         // return {
         //     scope: {startIndex: "=", endIndex: "="},

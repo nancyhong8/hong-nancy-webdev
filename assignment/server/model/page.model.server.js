@@ -17,8 +17,7 @@ function createPage(websiteId, page) {
                 {$push: {"pages": {_id: page._id}}},
                 {safe: true, upsert: true, new : true},
                 function(err, result) {
-                    console.log("should've pushed pages");
-                    console.log(result);
+
                     console.log(err);
                 });
         }
@@ -33,7 +32,6 @@ function findAllPagesForWebsite(websiteId) {
 
     pageModel.find({'_website': websiteId}, function(err, page) {
         deferred.resolve(page);
-        console.log('page from model findWebsiteByUser: ');
         console.log(page);
     });
     return deferred.promise;
@@ -44,7 +42,6 @@ function findPageById(pageId) {
 
     pageModel.findOne({'_id': pageId}, function(err, page) {
         deferred.resolve(page);
-        console.log('page from model findWebsiteByUser: ' + page);
     });
     return deferred.promise;
 }

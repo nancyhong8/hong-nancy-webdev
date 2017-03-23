@@ -5,8 +5,9 @@ module.exports = function (app) {
     app.get("/api/widget/:wgid", findWidgetById);
     app.put("/api/widget/:wgid", updateWidget);
     app.delete("/api/widget/:wgid", deleteWidget);
-    app.get("/re/page/:pid/start/:index1/end/:index2", reorderWidget);
-    app.put("/page/:pid/widget?start=index1&end=index2");
+    // app.get("/page/:pid/start/:index1/end/:index2", reorderWidget);
+    app.put("/page/:pid/widget/start=index1/end=index2");
+    app.put("/page/:pid/widget", reorderWidget);
 
     var multer = require('multer'); // npm install multer --save
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
@@ -36,17 +37,6 @@ module.exports = function (app) {
         res.redirect(url);
     }
 
-        // var widgets = [
-        //     {"_id": "123", "widgetType": "HEADER", "pageId": "543", "size": 2, "text": "GIZMODO" },
-        //     {"_id": "234", "widgetType": "HEADER", "pageId": "543", "size": 4, "text": "Lorem ipsum" },
-        //     {"_id": "345", "widgetType": "IMAGE", "pageId": "543", "width": "100%", "url": "http://lorempixel.com/400/200" },
-        //     {"_id": "456", "widgetType": "HTML", "pageId": "543", "text": "<p>Lorem ipsum</p>" },
-        //     {"_id": "567", "widgetType": "HEADER", "pageId": "543", "size": 4, "text": "Lorem ipsum" },
-        //     {"_id": "678", "widgetType": "YOUTUBE", "pageId": "543", "width": "100%", "url": "http://youtube/AM2Ivdi9c4E" },
-        //     {"_id": "789", "widgetType": "HTML", "pageId": "543", "text": "<p>Lorem ipsum</p>" }
-        // ];
-
-
 
         function createWidget(req, res) {
             var pageId = req.params['pid'];
@@ -54,7 +44,6 @@ module.exports = function (app) {
             widget._page = pageId;
             widgetModel.createWidget(pageId, widget)
                 .then(function(widget) {
-                    console.log('createWidget from server:' + widget);
                     res.send(widget);
                 }),function(err) {
                 console.log(err);
@@ -65,7 +54,6 @@ module.exports = function (app) {
             var pageId = req.params['pid'];
             widgetModel.findAllWidgetsForPage(pageId)
                 .then(function(widget) {
-                    console.log('findWidgetByPageID from server:' + widget);
                     res.send(widget);
                 }),function(err) {
                 console.log(err);
@@ -76,7 +64,6 @@ module.exports = function (app) {
             var widgetId = req.params['wgid'];
             widgetModel.findWidgetById(widgetId)
                 .then(function(widget) {
-                    console.log('findWidgetById from server:' + widget);
                     res.send(widget);
                 }),function(err) {
                 console.log(err);
@@ -88,11 +75,9 @@ module.exports = function (app) {
             var widgetId = req.params['wgid'];
             var pageId = req.params['pid'];
             var widget = req.body;
-            console.log("updatewidget from server");
-            console.log(widget);
+
             widgetModel.updateWidget(widgetId, widget)
                 .then(function(widget) {
-                    console.log("upate widget from server:" + widget);
                     res.sendStatus(200);
                 }),function(err) {
                 res.sendStatus(404);
@@ -104,7 +89,6 @@ module.exports = function (app) {
             var widgetId = req.params['wgid'];
             widgetModel.deleteWidget(widgetId)
                 .then(function(widget) {
-                    console.log('delete widget sending widget from server:' + widget);
                     res.sendStatus(200);
                 }),function(err) {
                 console.log(err);
@@ -114,11 +98,10 @@ module.exports = function (app) {
 
         function reorderWidget(req, res) {
             var pageId = req.params['pid'];
-            var start = req.params['start'];
-            var end = req.params['end'];
+            var start = req.body[0];
+            var end = req.body[1];
             widgetModel.reorderWidget(pageId, start, end)
                 .then(function(widget) {
-                    console.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
                     res.sendStatus(200);
                 }),function(err) {
                 console.log(err);

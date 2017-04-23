@@ -16,7 +16,6 @@ module.exports = function (app) {
 
     var widgetModel = require('../model/widget.model.server.js');
 
-
     function uploadImage(req, res) {
         var userId        = req.body.userId;
         var websiteId     = req.body.websiteId;
@@ -33,7 +32,6 @@ module.exports = function (app) {
 
         var url = '/assignment/#!\/user\/'+userId+'\/website\/'+websiteId+'\/page\/'+pageId+'\/widget\/';
         var widget = {"_id": widgetId, "widgetType": "IMAGE", "pageId": pageId, "width": width, "url": "/uploads/" + filename};
-        widgets.push(widget);
         res.redirect(url);
     }
 

@@ -40,7 +40,7 @@
             deferred.resolve(user);
         });
         return deferred.promise;
-}
+    }
 
     function findUserByUsername(username) {
         var deferred = q.defer();

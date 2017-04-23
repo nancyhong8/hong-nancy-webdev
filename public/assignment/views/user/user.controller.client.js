@@ -33,6 +33,10 @@
         function register() {
             $location.url("/register");
         }
+
+
+
+
     }
 
 
@@ -121,5 +125,9 @@
 
 
     }
+
+
+
+
 
 })();
